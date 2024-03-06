@@ -40,7 +40,7 @@ uint8_t CayenneLPP::copy(uint8_t *dst)
   return cursor;
 }
 
-uint8_t CayenneLPP::addDigitalInput(uint8_t channel, uint8_t value)
+/*uint8_t CayenneLPP::addDigitalInput(uint8_t channel, uint8_t value)
 {
   if ((cursor + LPP_DIGITAL_INPUT_SIZE) > maxsize)
   {
@@ -64,9 +64,25 @@ uint8_t CayenneLPP::addDigitalOutput(uint8_t channel, uint8_t value)
   buffer[cursor++] = value;
 
   return cursor;
+}*/
+
+uint8_t CayenneLPP::addDigital(uint8_t channel, uint8_t value, uint8_t type)
+{
+  uint8_t size = (type == LPP_DIGITAL_INPUT) ? LPP_DIGITAL_INPUT_SIZE : LPP_DIGITAL_OUTPUT_SIZE;
+
+  if ((cursor + size) > maxsize)
+  {
+    return 0;
+  }
+
+  buffer[cursor++] = channel;
+  buffer[cursor++] = type;
+  buffer[cursor++] = value;
+
+  return cursor;
 }
 
-uint8_t CayenneLPP::addAnalogInput(uint8_t channel, float value)
+/*uint8_t CayenneLPP::addAnalogInput(uint8_t channel, float value)
 {
   if ((cursor + LPP_ANALOG_INPUT_SIZE) > maxsize)
   {
@@ -95,23 +111,26 @@ uint8_t CayenneLPP::addAnalogOutput(uint8_t channel, float value)
   buffer[cursor++] = val;
 
   return cursor;
-}
-////////// \ functie addAnalogInput en addAnalogOutput samengevoegd tot 1 functie
-/*uint8_t CayenneLPP::addAnalogOutput(uint8_t channel, float value)
+}*/
+
+uint8_t CayenneLPP::addAnalog(uint8_t channel, float value, uint8_t type)
 {
-  if ((cursor + LPP_ANALOG_OUTPUT_SIZE) > maxsize)
+  uint8_t size = (type == LPP_ANALOG_INPUT) ? LPP_ANALOG_INPUT_SIZE : LPP_ANALOG_OUTPUT_SIZE;
+  
+  if ((cursor + size) > maxsize)
   {
     return 0;
   }
+
   int16_t val = value * 100;
   buffer[cursor++] = channel;
-  buffer[cursor++] = LPP_ANALOG_OUTPUT;
+  buffer[cursor++] = type;
   buffer[cursor++] = val >> 8;
   buffer[cursor++] = val;
 
   return cursor;
-}*/
-fout
+}
+
 uint8_t CayenneLPP::addLuminosity(uint8_t channel, uint16_t lux)
 {
   if ((cursor + LPP_LUMINOSITY_SIZE) > maxsize)

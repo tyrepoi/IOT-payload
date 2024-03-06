@@ -55,8 +55,10 @@ Go to **Tools->Processor** and select **ATmega32U4 (3.3V, 8MHz)**.
  */
 
 // Libraries and includes
-#include <TheThingsNetwork.h>
-#include <CayenneLPP.h>         // include for Cayenne library
+//#include <TheThingsNetwork.h>
+//#include <CayenneLPP.h>         // include for Cayenne library
+#include "TheThingsNetwork.h" 
+#include "CayenneLPP.h"
 #include "SparkFun_Si7021_Breakout_Library.h" // include for temperature and humidity sensor
 #include <Wire.h>
 #include "KISSLoRa_sleep.h"     // Include to sleep MCU
@@ -81,6 +83,7 @@ Go to **Tools->Processor** and select **ATmega32U4 (3.3V, 8MHz)**.
 //const char *appKey = "2B8AF92FB36094A682B2CF99A4FC0CEF"; 
 
 //const char *devEui = "70B3D57ED006599A";
+//
 const char *appEui = "0004A30B001EE766"; 
 const char *appKey = "B6B97071E7CEF402A53C40AA3392257D"; //3C80CDEA19B9BFD182C1A244F11824DF
 
@@ -282,11 +285,15 @@ void loop(){
   lpp.addTemperature(LPP_CH_TEMPERATURE, temperature);
   lpp.addRelativeHumidity(LPP_CH_HUMIDITY, humidity);
   lpp.addLuminosity(LPP_CH_LUMINOSITY, luminosity);
-  lpp.addDigitalInput(LPP_CH_ROTARYSWITCH, rotaryPosition);
+  //lpp.addDigitalInput(LPP_CH_ROTARYSWITCH, rotaryPosition);
+  lpp.addDigital(LPP_CH_ROTARYSWITCH, rotaryPosition, LPP_DIGITAL_INPUT);
   lpp.addAccelerometer(LPP_CH_ACCELEROMETER, x, y, z);
-  lpp.addAnalogInput(LPP_CH_BOARDVCCVOLTAGE, vdd);
   lpp.addPresence(LPP_CH_PRESENCE, SAFE);
-  lpp.addAnalogOutput(LPP_CH_SET_INTERVAL, (float)currentInterval/1000);
+  //lpp.addAnalogInput(LPP_CH_BOARDVCCVOLTAGE, vdd);
+  //lpp.addAnalogOutput(LPP_CH_SET_INTERVAL, (float)currentInterval/1000);
+  lpp.addAnalog(LPP_CH_BOARDVCCVOLTAGE, vdd, LPP_ANALOG_INPUT);
+  lpp.addAnalog(LPP_CH_SET_INTERVAL, static_cast<float>(currentInterval)/1000, LPP_ANALOG_OUTPUT);
+  
   
   digitalWrite(LED_LORA, LOW);  //switch LED_LORA LED on
 
@@ -474,7 +481,8 @@ static void sleep(uint32_t delay_time_ms){
         
       lpp.reset();
       lpp.addPresence(LPP_CH_PRESENCE, ALARM);
-      lpp.addDigitalInput(LPP_CH_SW_RELEASE, RELEASE);
+      //lpp.addDigitalInput(LPP_CH_SW_RELEASE, RELEASE);
+      lpp.addDigital(LPP_CH_SW_RELEASE, RELEASE, LPP_DIGITAL_INPUT);
   
       // Send it off
       ttn.sendBytes(lpp.getBuffer(), lpp.getSize(), APPLICATION_PORT_CAYENNE, true);

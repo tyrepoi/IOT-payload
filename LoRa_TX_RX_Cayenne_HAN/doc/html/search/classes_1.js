@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['weather_0',['Weather',['../class_weather.html',1,'']]]
+  ['thethingsnetwork_0',['TheThingsNetwork',['../class_the_things_network.html',1,'']]]
 ];
