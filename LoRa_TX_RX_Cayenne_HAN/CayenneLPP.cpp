@@ -40,31 +40,77 @@ uint8_t CayenneLPP::copy(uint8_t *dst)
   return cursor;
 }
 
-/*uint8_t CayenneLPP::addDigitalInput(uint8_t channel, uint8_t value)
+uint8_t CayenneLPP::addBoolean(uint8_t channel, bool value)
 {
-  if ((cursor + LPP_DIGITAL_INPUT_SIZE) > maxsize)
-  {
+  return addByte(channel, static_cast<uint8_t>(value));
+}
+
+uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t value) 
+{
+  return addOneByteData(channel, LPP_GENERIC_16BIT, value);
+}
+
+uint8_t CayenneLPP::add16Bit(uint8_t channel, uint16_t value) 
+{
+  return addTwoByteData(channel, LPP_GENERIC_16BIT, value);
+}
+
+uint8_t CayenneLPP::add32Bit(uint8_t channel, uint32_t value) 
+{
+  return addFourByteData(channel, LPP_GENERIC_32BIT, value);
+}
+
+uint8_t CayenneLPP::addFloat(uint8_t channel, float value) 
+{
+  return addFourByteData(channel, LPP_GENERIC_FLOAT, *reinterpret_cast<uint32_t *>(&value));
+}
+
+uint8_t CayenneLPP::addVersion(uint8_t version) 
+{
+  return addOneByteData(0, LPP_VERSION, version);
+}
+
+uint8_t CayenneLPP::addOneByteData(uint8_t channel, uint8_t type, uint8_t value) 
+{
+  if ((cursor + 3) > maxsize) {
     return 0;
   }
+
+  buffer[cursor++] = type;
   buffer[cursor++] = channel;
-  buffer[cursor++] = LPP_DIGITAL_INPUT;
   buffer[cursor++] = value;
 
   return cursor;
 }
 
-uint8_t CayenneLPP::addDigitalOutput(uint8_t channel, uint8_t value)
+uint8_t CayenneLPP::addTwoByteData(uint8_t channel, uint8_t type, uint16_t value) 
 {
-  if ((cursor + LPP_DIGITAL_OUTPUT_SIZE) > maxsize)
-  {
+  if ((cursor + 4) > maxsize) {
     return 0;
   }
+  buffer[cursor++] = type;
   buffer[cursor++] = channel;
-  buffer[cursor++] = LPP_DIGITAL_OUTPUT;
+  buffer[cursor++] = value >> 8;
   buffer[cursor++] = value;
 
   return cursor;
-}*/
+}
+
+uint8_t CayenneLPP::addFourByteData(uint8_t channel, uint8_t type, uint32_t value) 
+{
+  if ((cursor + 5) > maxsize) {
+    return 0; // Buffer overflow
+  }
+
+  buffer[cursor++] = type;
+  buffer[cursor++] = channel;
+  buffer[cursor++] = (value >> 24) & 0xFF;
+  buffer[cursor++] = (value >> 16) & 0xFF;
+  buffer[cursor++] = (value >> 8) & 0xFF;
+  buffer[cursor++] = value & 0xFF;
+
+  return cursor;
+}
 
 uint8_t CayenneLPP::addDigital(uint8_t channel, uint8_t value, uint8_t type)
 {
@@ -81,37 +127,6 @@ uint8_t CayenneLPP::addDigital(uint8_t channel, uint8_t value, uint8_t type)
 
   return cursor;
 }
-
-/*uint8_t CayenneLPP::addAnalogInput(uint8_t channel, float value)
-{
-  if ((cursor + LPP_ANALOG_INPUT_SIZE) > maxsize)
-  {
-    return 0;
-  }
-
-  int16_t val = value * 100;
-  buffer[cursor++] = channel;
-  buffer[cursor++] = LPP_ANALOG_INPUT;
-  buffer[cursor++] = val >> 8;
-  buffer[cursor++] = val;
-
-  return cursor;
-}
-
-uint8_t CayenneLPP::addAnalogOutput(uint8_t channel, float value)
-{
-  if ((cursor + LPP_ANALOG_OUTPUT_SIZE) > maxsize)
-  {
-    return 0;
-  }
-  int16_t val = value * 100;
-  buffer[cursor++] = channel;
-  buffer[cursor++] = LPP_ANALOG_OUTPUT;
-  buffer[cursor++] = val >> 8;
-  buffer[cursor++] = val;
-
-  return cursor;
-}*/
 
 uint8_t CayenneLPP::addAnalog(uint8_t channel, float value, uint8_t type)
 {

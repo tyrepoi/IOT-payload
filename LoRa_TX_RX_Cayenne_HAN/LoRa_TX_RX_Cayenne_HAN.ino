@@ -1,5 +1,3 @@
-
-
 /*--------------------------------------------------------------------
   This code is free software:
   you can redistribute it and/or modify it under the terms of a Creative
@@ -55,8 +53,8 @@ Go to **Tools->Processor** and select **ATmega32U4 (3.3V, 8MHz)**.
  */
 
 // Libraries and includes
-//#include <TheThingsNetwork.h>
-//#include <CayenneLPP.h>         // include for Cayenne library
+//#include <TheThingsNetwork.h>   // include for TheThingsNetwork library
+//#include <CayenneLPP.h>         // include for CayenneLPP library
 #include "TheThingsNetwork.h" 
 #include "CayenneLPP.h"
 #include "SparkFun_Si7021_Breakout_Library.h" // include for temperature and humidity sensor

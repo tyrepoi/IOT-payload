@@ -15,6 +15,11 @@
 #define LPP_DIGITAL_OUTPUT 1        // 1 byte
 #define LPP_ANALOG_INPUT 2          // 2 bytes, 0.01 signed
 #define LPP_ANALOG_OUTPUT 3         // 2 bytes, 0.01 signed
+#define LPP_GENERIC_16BIT 4         // 2 bytes
+#define LPP_GENERIC_32BIT 5         // 4 bytes
+#define LPP_GENERIC_FLOAT 6         // 4 bytes
+#define LPP_VERSION 255
+
 #define LPP_LUMINOSITY 101          // 2 bytes, 1 lux unsigned
 #define LPP_PRESENCE 102            // 1 byte, 1
 #define LPP_TEMPERATURE 103         // 2 bytes, 0.1°C signed
@@ -49,14 +54,18 @@ public:
   uint8_t *getBuffer(void);
   uint8_t copy(uint8_t *buffer);
 
-  //uint8_t addDigitalInput(uint8_t channel, uint8_t value);
-  //uint8_t addDigitalOutput(uint8_t channel, uint8_t value);
+  // Setters for different data types
+  uint8_t addBoolean(uint8_t channel, bool value);  /// \Function that adds a Bit(Boolean) to the payload
+  uint8_t addByte(uint8_t channel, uint8_t value);  /// \Function that adds a Byte to the payload
+  uint8_t add16Bit(uint8_t channel, uint16_t value);/// \Function that adds 16-bit words to the payload
+  uint8_t add32Bit(uint8_t channel, uint32_t value);/// \Function that adds 32-bit words to the payload
+  uint8_t addFloat(uint8_t channel, float value);   /// \Function that adds a float to the payload
+  uint8_t addVersion(uint8_t version);              /// \Function that adds the version number to the payload
+  uint8_t addOneByteData(uint8_t channel, uint8_t type, uint8_t value);
+  uint8_t addTwoByteData(uint8_t channel, uint8_t type, uint16_t value);
+  uint8_t addFourByteData(uint8_t channel, uint8_t type, uint32_t value);
   uint8_t addDigital(uint8_t channel, uint8_t value, uint8_t type); /// \Combined addDigitalInput and addDigitalOutput to the function addDigital
-
-  //uint8_t addAnalogInput(uint8_t channel, float value);
-  //uint8_t addAnalogOutput(uint8_t channel, float value);
-  uint8_t addAnalog(uint8_t channel, float value, uint8_t type);  /// \Combined addAnalogInput and addAnalogOutput to the function addAnalog
-
+  uint8_t addAnalog(uint8_t channel, float value, uint8_t type);    /// \Combined addAnalogInput and addAnalogOutput to the function addAnalog
   uint8_t addLuminosity(uint8_t channel, uint16_t lux);
   uint8_t addPresence(uint8_t channel, uint8_t value);
   uint8_t addTemperature(uint8_t channel, float celsius);
