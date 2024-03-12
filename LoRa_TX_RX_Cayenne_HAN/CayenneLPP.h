@@ -11,37 +11,37 @@
 //LPP_BATTERY = // TODO Unsupported in IPSO Smart Object
 //LPP_PROXIMITY = // TODO Unsupported in IPSO Smart Object
 
-#define LPP_DIGITAL_INPUT 0         // 1 byte
-#define LPP_DIGITAL_OUTPUT 1        // 1 byte
-#define LPP_ANALOG_INPUT 2          // 2 bytes, 0.01 signed
-#define LPP_ANALOG_OUTPUT 3         // 2 bytes, 0.01 signed
-#define LPP_GENERIC_16BIT 4         // 2 bytes
-#define LPP_GENERIC_32BIT 5         // 4 bytes
-#define LPP_GENERIC_FLOAT 6         // 4 bytes
-#define LPP_VERSION 255
+#define LPP_DIGITAL_INPUT 0         /// \ 1 byte
+#define LPP_DIGITAL_OUTPUT 1        /// \ 1 byte
+#define LPP_ANALOG_INPUT 2          /// \ 2 bytes, 0.01 signed
+#define LPP_ANALOG_OUTPUT 3         /// \ 2 bytes, 0.01 signed
+//#define LPP_GENERIC_16BIT 4         /// \ 2 bytes
+//#define LPP_GENERIC_32BIT 5         /// \ 4 bytes
+//#define LPP_GENERIC_FLOAT 6         /// \ 4 bytes
+//#define LPP_VERSION 255
 
-#define LPP_LUMINOSITY 101          // 2 bytes, 1 lux unsigned
-#define LPP_PRESENCE 102            // 1 byte, 1
-#define LPP_TEMPERATURE 103         // 2 bytes, 0.1°C signed
-#define LPP_RELATIVE_HUMIDITY 104   // 1 byte, 0.5% unsigned
-#define LPP_ACCELEROMETER 113       // 2 bytes per axis, 0.001G
-#define LPP_BAROMETRIC_PRESSURE 115 // 2 bytes 0.1 hPa Unsigned
-#define LPP_GYROMETER 134           // 2 bytes per axis, 0.01 °/s
-#define LPP_GPS 136                 // 3 byte lon/lat 0.0001 °, 3 bytes alt 0.01 meter
+#define LPP_LUMINOSITY 101          /// \ 2 bytes, 1 lux unsigned
+#define LPP_PRESENCE 102            /// \ 1 byte, 1
+#define LPP_TEMPERATURE 103         /// \ 2 bytes, 0.1°C signed
+#define LPP_RELATIVE_HUMIDITY 104   /// \ 1 byte, 0.5% unsigned
+#define LPP_ACCELEROMETER 113       /// \ 2 bytes per axis, 0.001G
+#define LPP_BAROMETRIC_PRESSURE 115 /// \ 2 bytes 0.1 hPa Unsigned
+#define LPP_GYROMETER 134           /// \ 2 bytes per axis, 0.01 °/s
+#define LPP_GPS 136                 /// \ 3 byte lon/lat 0.0001 °, 3 bytes alt 0.01 meter
 
 // Data ID + Data Type + Data Size
-#define LPP_DIGITAL_INPUT_SIZE 3       // 1 byte
-#define LPP_DIGITAL_OUTPUT_SIZE 3      // 1 byte
-#define LPP_ANALOG_INPUT_SIZE 4        // 2 bytes, 0.01 signed
-#define LPP_ANALOG_OUTPUT_SIZE 4       // 2 bytes, 0.01 signed
-#define LPP_LUMINOSITY_SIZE 4          // 2 bytes, 1 lux unsigned
-#define LPP_PRESENCE_SIZE 3            // 1 byte, 1
-#define LPP_TEMPERATURE_SIZE 4         // 2 bytes, 0.1°C signed
-#define LPP_RELATIVE_HUMIDITY_SIZE 3   // 1 byte, 0.5% unsigned
-#define LPP_ACCELEROMETER_SIZE 8       // 2 bytes per axis, 0.001G
-#define LPP_BAROMETRIC_PRESSURE_SIZE 4 // 2 bytes 0.1 hPa Unsigned
-#define LPP_GYROMETER_SIZE 8           // 2 bytes per axis, 0.01 °/s
-#define LPP_GPS_SIZE 11                // 3 byte lon/lat 0.0001 °, 3 bytes alt 0.01 meter
+#define LPP_DIGITAL_INPUT_SIZE 3       /// \ 1 byte
+#define LPP_DIGITAL_OUTPUT_SIZE 3      /// \ 1 byte
+#define LPP_ANALOG_INPUT_SIZE 4        /// \ 2 bytes, 0.01 signed
+#define LPP_ANALOG_OUTPUT_SIZE 4       /// \ 2 bytes, 0.01 signed
+#define LPP_LUMINOSITY_SIZE 4          /// \ 2 bytes, 1 lux unsigned
+#define LPP_PRESENCE_SIZE 3            /// \ 1 byte, 1
+#define LPP_TEMPERATURE_SIZE 4         /// \ 2 bytes, 0.1°C signed
+#define LPP_RELATIVE_HUMIDITY_SIZE 3   /// \ 1 byte, 0.5% unsigned
+#define LPP_ACCELEROMETER_SIZE 8       /// \ 2 bytes per axis, 0.001G
+#define LPP_BAROMETRIC_PRESSURE_SIZE 4 /// \ 2 bytes 0.1 hPa Unsigned
+#define LPP_GYROMETER_SIZE 8           /// \ 2 bytes per axis, 0.01 °/s
+#define LPP_GPS_SIZE 11                /// \ 3 byte lon/lat 0.0001 °, 3 bytes alt 0.01 meter
 
 class CayenneLPP
 {
@@ -55,15 +55,15 @@ public:
   uint8_t copy(uint8_t *buffer);
 
   // Setters for different data types
-  uint8_t addBoolean(uint8_t channel, bool value);  /// \Function that adds a Bit(Boolean) to the payload
-  uint8_t addByte(uint8_t channel, uint8_t value);  /// \Function that adds a Byte to the payload
-  uint8_t add16Bit(uint8_t channel, uint16_t value);/// \Function that adds 16-bit words to the payload
-  uint8_t add32Bit(uint8_t channel, uint32_t value);/// \Function that adds 32-bit words to the payload
-  uint8_t addFloat(uint8_t channel, float value);   /// \Function that adds a float to the payload
-  uint8_t addVersion(uint8_t version);              /// \Function that adds the version number to the payload
-  uint8_t addOneByteData(uint8_t channel, uint8_t type, uint8_t value);
-  uint8_t addTwoByteData(uint8_t channel, uint8_t type, uint16_t value);
-  uint8_t addFourByteData(uint8_t channel, uint8_t type, uint32_t value);
+  //uint8_t addBoolean(uint8_t channel, bool value);  /// \Function that adds a Bit(Boolean) to the payload
+  //uint8_t addByte(uint8_t channel, uint8_t value);  /// \Function that adds a Byte to the payload
+  //uint8_t add16Bit(uint8_t channel, uint16_t value);/// \Function that adds 16-bit words to the payload
+  //uint8_t add32Bit(uint8_t channel, uint32_t value);/// \Function that adds 32-bit words to the payload
+  //uint8_t addFloat(uint8_t channel, float value);   /// \Function that adds a float to the payload
+  //uint8_t addVersion(uint8_t version);              /// \Function that adds the version number to the payload
+  //uint8_t addOneByteData(uint8_t channel, uint8_t type, uint8_t value);
+  //uint8_t addTwoByteData(uint8_t channel, uint8_t type, uint16_t value);
+  //uint8_t addFourByteData(uint8_t channel, uint8_t type, uint32_t value);
   uint8_t addDigital(uint8_t channel, uint8_t value, uint8_t type); /// \Combined addDigitalInput and addDigitalOutput to the function addDigital
   uint8_t addAnalog(uint8_t channel, float value, uint8_t type);    /// \Combined addAnalogInput and addAnalogOutput to the function addAnalog
   uint8_t addLuminosity(uint8_t channel, uint16_t lux);
