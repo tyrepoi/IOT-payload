@@ -1,21 +1,5 @@
 
-/**
- * Cayenne Low-power Payload Library
- * 
- * @author Pasakorn Tiwatthanont
- * @email ptiwatthanont@gmail.com
- * 
- * @link https://htmlcheatsheet.com/js/ 
- */
-// console.log('Node.js version: ' + process.version)
-format = require('string-format')
 
-/**
- * Byte stream to fixed-point decimal word.
- * 
- * @param stream: array of bytes.
- * @return: word of the bytes in big-endian format.
- */
 function arrayToDecimal(stream, is_signed=false, decimal_point=0) {
     var value = 0;
     for (var i = 0; i < stream.length; i++) {
