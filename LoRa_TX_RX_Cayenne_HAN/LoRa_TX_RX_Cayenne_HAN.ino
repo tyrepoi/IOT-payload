@@ -77,11 +77,6 @@ Go to **Tools->Processor** and select **ATmega32U4 (3.3V, 8MHz)**.
 //const char *appEui = "70B3D57ED0013DED"; 
 //const char *appKey = "C5DAAB272E770448DD939CAB53C3BB9B"; //3C80CDEA19B9BFD182C1A244F11824DF
 
-//const char *appEui = "70B3D57ED0013DED"; 
-//const char *appKey = "2B8AF92FB36094A682B2CF99A4FC0CEF"; 
-
-//const char *devEui = "70B3D57ED006599A";
-//
 const char *appEui = "0004A30B001EE766"; 
 const char *appKey = "B6B97071E7CEF402A53C40AA3392257D"; //3C80CDEA19B9BFD182C1A244F11824DF
 
@@ -242,9 +237,16 @@ void loop(){
   // Temperature is measured every time RH is requested.
   // It is faster, therefore, to read it from previous RH
   // measurement with getTemp() instead with readTemp()
+  
   debugSerial.print(F("Temperature: "));
   debugSerial.print(temperature);
   debugSerial.println(F(" Degrees."));
+  ///float floatn = 18.7;
+  //uint8_t number8 = static_cast<uint8_t>(floatn);
+  //uint8_t bytetemperature = static_cast<uint8_t>(temperature);
+  //Serial.println("test");
+  //Serial.println(number8);
+  //Serial.println(bytetemperature);
 
   // Measure luminosity
   float luminosity = get_lux_value();
@@ -278,20 +280,21 @@ void loop(){
   
   // Compose Cayenne message
   lpp.reset();    // reset cayenne object
-
+  
   // add sensor values to cayenne data package
+  //lpp.addCustom(channel, value, bitSize);
   lpp.addTemperature(LPP_CH_TEMPERATURE, temperature);
   lpp.addRelativeHumidity(LPP_CH_HUMIDITY, humidity);
   lpp.addLuminosity(LPP_CH_LUMINOSITY, luminosity);
-  //lpp.addDigitalInput(LPP_CH_ROTARYSWITCH, rotaryPosition);
-  lpp.addDigital(LPP_CH_ROTARYSWITCH, rotaryPosition, LPP_DIGITAL_INPUT);
+  lpp.addDigitalInput(LPP_CH_ROTARYSWITCH, rotaryPosition);
   lpp.addAccelerometer(LPP_CH_ACCELEROMETER, x, y, z);
+  lpp.addAnalogInput(LPP_CH_BOARDVCCVOLTAGE, vdd);
   lpp.addPresence(LPP_CH_PRESENCE, SAFE);
-  //lpp.addAnalogInput(LPP_CH_BOARDVCCVOLTAGE, vdd);
-  //lpp.addAnalogOutput(LPP_CH_SET_INTERVAL, (float)currentInterval/1000);
-  lpp.addAnalog(LPP_CH_BOARDVCCVOLTAGE, vdd, LPP_ANALOG_INPUT);
-  lpp.addAnalog(LPP_CH_SET_INTERVAL, static_cast<float>(currentInterval)/1000, LPP_ANALOG_OUTPUT);
+  lpp.addAnalogOutput(LPP_CH_SET_INTERVAL, (float)currentInterval/1000);
+
   
+  Serial.print("lpp.getSize()");
+  Serial.println(lpp.getSize());
   
   digitalWrite(LED_LORA, LOW);  //switch LED_LORA LED on
 
@@ -479,8 +482,7 @@ static void sleep(uint32_t delay_time_ms){
         
       lpp.reset();
       lpp.addPresence(LPP_CH_PRESENCE, ALARM);
-      //lpp.addDigitalInput(LPP_CH_SW_RELEASE, RELEASE);
-      lpp.addDigital(LPP_CH_SW_RELEASE, RELEASE, LPP_DIGITAL_INPUT);
+      lpp.addDigitalInput(LPP_CH_SW_RELEASE, RELEASE);
   
       // Send it off
       ttn.sendBytes(lpp.getBuffer(), lpp.getSize(), APPLICATION_PORT_CAYENNE, true);
