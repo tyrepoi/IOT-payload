@@ -113,28 +113,28 @@ public:
 	 * @param channel Channel number.
 	 * @param value Byte value.
 	 */
-	uint8_t addByte(uint8_t channel, uint8_t value);   
+	uint8_t addByte(uint8_t channel, uint16_t type, uint8_t value, uint16_t resolution);   
 
 	/**
 	 * @brief Add a two-byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Two-byte value.
 	 */
-	uint8_t add2Bytes(uint8_t channel, uint16_t value); 
+	uint8_t add2Bytes(uint8_t channel, uint16_t type, uint16_t value, uint16_t resolution); 
 
 	/**
 	 * @brief Add a four-byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Four-byte value.
 	 */  
-	uint8_t add4Bytes(uint8_t channel, uint32_t value); 
+	uint8_t add4Bytes(uint8_t channel, uint16_t type, uint32_t value, uint16_t resolution); 
 
 	/**
 	 * @brief Add a floating-point value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Floating-point value.
 	 */
-	uint8_t addFloat(uint8_t channel, float value); 
+	uint8_t addFloat(uint8_t channel, uint16_t type, float value, uint16_t resolution); 
 
 	/**
 	 * @brief Add a digital input value to the LPP packet.

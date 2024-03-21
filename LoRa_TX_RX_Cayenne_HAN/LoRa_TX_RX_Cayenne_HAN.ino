@@ -96,7 +96,8 @@ TheThingsNetwork ttn(loraSerial, debugSerial, freqPlan);  // TTN object for LoRa
 #define LPP_CH_PRESENCE           6    ///< CayenneLPP CHannel for Alarm
 
 #define LPP_CH_ADDBYTE            7
-#define LPP_CH_ADD4BYTES          8
+#define LLP_CH_ADD2BYTES          9
+#define LPP_CH_ADD4BYTES          10
 
 #define LPP_CH_SET_INTERVAL       20   ///< CayenneLPP CHannel for setting downlink interval
 #define LPP_CH_SW_RELEASE         90   ///< 
@@ -296,8 +297,8 @@ void loop(){
   uint8_t inputsa = 1;
   
 
-  lpp.addTemperature(LPP_CH_TEMPERATURE, temperature);
- 
+  //lpp.addTemperature(LPP_CH_TEMPERATURE, temperature);
+  lpp.add2Bytes(LPP_CH_TEMPERATURE,LPP_TEMPERATURE, temperature, 10);
 
   lpp.addRelativeHumidity(LPP_CH_HUMIDITY, humidity);
   lpp.addLuminosity(LPP_CH_LUMINOSITY, luminosity);
