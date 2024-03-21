@@ -122,19 +122,10 @@ function lppDecode(bytes) {
         var s_value = 0;
         var type = sensor_types[s_type];
         switch (s_type) {
-
-            case 9:     //custom bit
-                s_value = {
-                    bit1: (bytes >> 0) & 1,
-                    bit2: (bytes >> 1) & 1,
-                    bit3: (bytes >> 2) & 1,
-                    bit4: (bytes >> 3) & 1,
-                    bit5: (bytes >> 4) & 1,
-                    bit6: (bytes >> 5) & 1,
-                    bit7: (bytes >> 6) & 1,
-                    bit8: (bytes >> 7) & 1
-                }
-                break;
+            case 4: //addBit
+            s_value = {
+                'bit': (bytes[i++] >> 1) & 1
+            };
             case 113:   // Accelerometer
             case 134:   // Gyrometer
                 s_value = {

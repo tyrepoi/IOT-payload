@@ -94,8 +94,9 @@ TheThingsNetwork ttn(loraSerial, debugSerial, freqPlan);  // TTN object for LoRa
 #define LPP_CH_ACCELEROMETER      4    ///< CayenneLPP CHannel for Accelerometer
 #define LPP_CH_BOARDVCCVOLTAGE    5    ///< CayenneLPP CHannel for Processor voltage
 #define LPP_CH_PRESENCE           6    ///< CayenneLPP CHannel for Alarm
-#define LPP_CH_CUSTOMBIT          7
-#define LPP_CH_ADDBYTE            8
+
+#define LPP_CH_ADDBYTE            7
+#define LPP_CH_ADD4BYTES          8
 
 #define LPP_CH_SET_INTERVAL       20   ///< CayenneLPP CHannel for setting downlink interval
 #define LPP_CH_SW_RELEASE         90   ///< 
@@ -284,17 +285,27 @@ void loop(){
   // Compose Cayenne message
   lpp.reset();    // reset cayenne object
   
+
   // add sensor values to cayenne data package
-  // lpp.addCustom(channel, value, bitSize);
-  // lpp.addByte(LPP_CH_ADDBYTE, '0');
-  // lpp.addCustomBit(LPP_CH_CUSTOMBIT, '0', '0');
+  //lpp.addByte(LPP_CH_ADDBYTE, one);
+
+  uint32_t big = 309;
+  //lpp.add4Bytes(LPP_CH_ADD4BYTES, big);
+
+  uint8_t bufesize = 3;
+  uint8_t inputsa = 1;
+  
+
   lpp.addTemperature(LPP_CH_TEMPERATURE, temperature);
+ 
+
   lpp.addRelativeHumidity(LPP_CH_HUMIDITY, humidity);
   lpp.addLuminosity(LPP_CH_LUMINOSITY, luminosity);
   lpp.addDigitalInput(LPP_CH_ROTARYSWITCH, rotaryPosition);
   lpp.addAccelerometer(LPP_CH_ACCELEROMETER, x, y, z);
   lpp.addAnalogInput(LPP_CH_BOARDVCCVOLTAGE, vdd);
   lpp.addPresence(LPP_CH_PRESENCE, SAFE);
+
   lpp.addAnalogOutput(LPP_CH_SET_INTERVAL, (float)currentInterval/1000);
 
   
