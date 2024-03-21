@@ -111,30 +111,39 @@ public:
 	/**
 	 * @brief Add a byte value to the LPP packet.
 	 * @param channel Channel number.
+   * @param implemented function addByte for the functions (addDigitalInput and addDigitalOutput).
 	 * @param value Byte value.
-	 */
-	uint8_t addByte(uint8_t channel, uint16_t type, uint8_t value, uint16_t resolution);   
-
+	 */ 
+  uint8_t addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+	
 	/**
 	 * @brief Add a two-byte value to the LPP packet.
 	 * @param channel Channel number.
+   * @param implemented function add2Bytes for the functions (temperature, addLuminosity, addAnalogInput, addAnalogOutput)
 	 * @param value Two-byte value.
 	 */
-	uint8_t add2Bytes(uint8_t channel, uint16_t type, uint16_t value, uint16_t resolution); 
+  uint8_t add2Bytes(uint8_t channel, uint8_t type, float value, uint8_t resolution);
 
 	/**
 	 * @brief Add a four-byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Four-byte value.
 	 */  
-	uint8_t add4Bytes(uint8_t channel, uint16_t type, uint32_t value, uint16_t resolution); 
+	uint8_t add4Bytes(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution); 
 
 	/**
 	 * @brief Add a floating-point value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Floating-point value.
 	 */
-	uint8_t addFloat(uint8_t channel, uint16_t type, float value, uint16_t resolution); 
+	uint8_t addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution); 
+
+  /**
+   * @brief Add a 3float value to the LPP packet.
+   * @param channel Channel number.
+   * @param value Floating-point value.
+   */
+  uint8_t add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint8_t resolution);
 
 	/**
 	 * @brief Add a digital input value to the LPP packet.
@@ -142,14 +151,14 @@ public:
 	 * @param value Digital input value.
    * @param bitSize Size of the one byte field (1 to 8).
 	 */
-	uint8_t addDigitalInput(uint8_t channel, uint8_t value);
+	//uint8_t addDigitalInput(uint8_t channel, uint8_t value);
 
 	/**
 	 * @brief Add a digital output value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Digital output value.
 	 */
-	uint8_t addDigitalOutput(uint8_t channel, uint8_t value);
+	//uint8_t addDigitalOutput(uint8_t channel, uint8_t value);
 
 	/**
 	 * @brief Add an analog input value to the LPP packet.
