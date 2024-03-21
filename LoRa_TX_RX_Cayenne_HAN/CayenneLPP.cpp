@@ -28,37 +28,38 @@ uint8_t CayenneLPP::copy(uint8_t* dst) {
     return cursor;
 }
 
-uint8_t CayenneLPP::addBit(uint8_t channel, uint8_t value, uint8_t bitSize) {
+uint8_t CayenneLPP::addBit(uint8_t channel, uint8_t value) {
     
-    buffer[cursor++] = bitSize; 
     buffer[cursor++] = channel;
+    buffer[cursor++] = LPP_ADDBIT;
     buffer[cursor++] = value >> 8; 
 
     return cursor;
 }
 
-uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t value, uint8_t bitSize) {
+uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t value) {
 
-    buffer[cursor++] = bitSize; 
     buffer[cursor++] = channel;
+    buffer[cursor++] = LPP_ADDBYTE;
     buffer[cursor++] = value;
 
     return cursor;
 }
 
-uint8_t CayenneLPP::add2Bytes(uint8_t channel, uint16_t value, uint8_t bitSize) {
+uint8_t CayenneLPP::add2Bytes(uint8_t channel, uint16_t value) {
 
-    buffer[cursor++] = bitSize; 
     buffer[cursor++] = channel;
+    buffer[cursor++] = LPP_ADD2BYTES;
     buffer[cursor++] = value >> 8;  // Store most significant byte
     buffer[cursor++] = value & 0xFF;  // Store least significant byte
 
     return cursor;
 }
-uint8_t CayenneLPP::add4Bytes(uint8_t channel, uint32_t value, uint8_t bitSize){
-  
-    buffer[cursor++] = bitSize; 
+
+uint8_t CayenneLPP::add4Bytes(uint8_t channel, uint32_t value){
+ 
     buffer[cursor++] = channel;
+    buffer[cursor++] = LPP_ADD4BYTES;
     buffer[cursor++] = (value >> 24) & 0xFF;  // Store the most significant byte
     buffer[cursor++] = (value >> 16) & 0xFF;  // Store the second most significant byte
     buffer[cursor++] = (value >> 8) & 0xFF;   // Store the third most significant byte
@@ -66,6 +67,32 @@ uint8_t CayenneLPP::add4Bytes(uint8_t channel, uint32_t value, uint8_t bitSize){
 
     return cursor;
 }
+
+uint8_t CayenneLPP::addFloat(uint8_t channel, uint32_t value){
+    int32_t scaledValue = value * 10000000; // scale by 10^7 for 0.0000001 resolution
+
+    buffer[cursor++] = channel;
+    buffer[cursor++] = LPP_ADDFLOAT; // Assuming LPP_ADDFLOAT is a defined constant for the data type
+
+    // Add the individual bytes of the signed 32-bit integer to the buffer
+    buffer[cursor++] = scaledValue >> 24;  // Most significant byte
+    buffer[cursor++] = scaledValue >> 16;  // Second most significant byte
+    buffer[cursor++] = scaledValue >> 8;   // Third most significant byte
+    buffer[cursor++] = scaledValue;        // Least significant byte
+    return cursor;
+}
+
+uint8_t CayenneLPP::addCustomBit(uint8_t channel, uint8_t value, uint8_t bitSize){
+  buffer[cursor++] = channel;
+  buffer[cursor++] = LPP_ADDCUSTOMBIT;
+
+  for (int i = bitSize - 8; i >= 0; i -= 8) {
+    buffer[cursor++] = (value >> i) & 0xFF; // Extract each byte
+  }
+
+  return cursor;
+}
+
 
 uint8_t CayenneLPP::addDigitalInput(uint8_t channel, uint8_t value) {
     if ((cursor + LPP_DIGITAL_INPUT_SIZE) > maxsize) {
@@ -172,7 +199,7 @@ uint8_t CayenneLPP::addPresence(uint8_t channel, uint8_t value) {
     return cursor;
 }
 // reduced one 1 byte when changing the int16_t to int8_t
-/*uint8_t CayenneLPP::addTemperature(uint8_t channel, float celsius) {
+uint8_t CayenneLPP::addTemperature(uint8_t channel, float celsius) {
     if ((cursor + LPP_TEMPERATURE_SIZE) > maxsize) {
         return 0;
     }
@@ -183,18 +210,18 @@ uint8_t CayenneLPP::addPresence(uint8_t channel, uint8_t value) {
     buffer[cursor++] = val; 
 
     return cursor;
-}*/
-
-uint8_t CayenneLPP::addTemperature(uint8_t channel, float celsius) {
-    if ((cursor + LPP_TEMPERATURE_SIZE) > maxsize) {
-        return 0;
-    }
-    int8_t val = celsius * 10;
-    buffer[cursor++] = channel; 
-    buffer[cursor++] = LPP_TEMPERATURE; 
-    buffer[cursor++] = val;
-    return cursor;
 }
+
+// uint8_t CayenneLPP::addTemperature(uint8_t channel, float celsius) {
+//     if ((cursor + LPP_TEMPERATURE_SIZE) > maxsize) {
+//         return 0;
+//     }
+//     int8_t val = celsius * 10;
+//     buffer[cursor++] = channel; 
+//     buffer[cursor++] = LPP_TEMPERATURE; 
+//     buffer[cursor++] = val;
+//     return cursor;
+// }
 
 uint8_t CayenneLPP::addRelativeHumidity(uint8_t channel, float rh) {
     if ((cursor + LPP_RELATIVE_HUMIDITY_SIZE) > maxsize) {

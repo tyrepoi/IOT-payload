@@ -106,47 +106,49 @@ public:
 	/**
 	 * @brief Add a single bit value to the LPP packet.
 	 * @param channel Channel number.
-	 * @param value Bit value (0 or 1).
-	 * @param bitSize Size of the bit field (1 to 8).
 	 */
-	uint8_t addBit(uint8_t channel, uint8_t value, uint8_t bitSize);
+	uint8_t addBit(uint8_t channel, uint8_t value);
 
 	/**
 	 * @brief Add a byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Byte value.
-	 * @param bitSize Size of the byte field (1 to 8).
 	 */
-	uint8_t addByte(uint8_t channel, uint8_t value, uint8_t bitSize);   
+	uint8_t addByte(uint8_t channel, uint8_t value);   
 
 	/**
 	 * @brief Add a two-byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Two-byte value.
-	 * @param bitSize Size of the two-byte field (1 to 16).
 	 */
-	uint8_t add2Bytes(uint8_t channel, uint16_t value, uint8_t bitSize); 
+	uint8_t add2Bytes(uint8_t channel, uint16_t value); 
 
 	/**
 	 * @brief Add a four-byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Four-byte value.
-	 * @param bitSize Size of the four-byte field (1 to 32).
 	 */  
-	uint8_t add4Bytes(uint8_t channel, uint32_t value, uint8_t bitSize); 
+	uint8_t add4Bytes(uint8_t channel, uint32_t value); 
 
 	/**
 	 * @brief Add a floating-point value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Floating-point value.
-	 * @param bitSize Size of the floating-point field (1 to 32).
 	 */
-	uint8_t addFloat(uint8_t channel, uint32_t value, uint8_t bitSize); 
+	uint8_t addFloat(uint8_t channel, uint32_t value); 
+
+	/**
+	 * @brief Add a custom bit value to the LPP packet 
+	 * @param channel Channel number.
+	 * @param value Floating-point signed value.
+	 */
+  uint8_t addCustomBit(uint8_t channel, uint8_t value, uint8_t bitSize);
 
 	/**
 	 * @brief Add a digital input value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Digital input value.
+   * @param bitSize Size of the one byte field (1 to 8).
 	 */
 	uint8_t addDigitalInput(uint8_t channel, uint8_t value);
 

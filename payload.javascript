@@ -57,11 +57,12 @@ function lppDecode(bytes) {
         2  : {'size': 2, 'name': 'analog_in', 'signed': true , 'divisor': 100},
         3  : {'size': 2, 'name': 'analog_out', 'signed': true , 'divisor': 100},
 
+        4  : {'size': 1, 'name': 'bit', 'signed': false , 'divisor': 1},
         5  : {'size': 1, 'name': 'byte', 'signed': false , 'divisor': 1},
         6  : {'size': 2, 'name': '2byte', 'signed': false , 'divisor': 1},
         7  : {'size': 4, 'name': '4byte', 'signed': false , 'divisor': 1},
         8  : {'size': 4, 'name': 'float', 'signed': true , 'divisor': 1000000},
-        9  : {'size': 1, 'name': 'custom_bit', 'signed': false , 'divisor': 1},
+        9  : {'size': 2, 'name': 'custom_bit', 'signed': false , 'divisor': 1},
 
         100: {'size': 4, 'name': 'generic', 'signed': false, 'divisor': 1},
         101: {'size': 2, 'name': 'illuminance', 'signed': false, 'divisor': 1},
@@ -124,14 +125,14 @@ function lppDecode(bytes) {
 
             case 9:     //custom bit
                 s_value = {
-                    bit1: (payload >> 0) & 1,
-                    bit2: (payload >> 1) & 1,
-                    bit3: (payload >> 2) & 1,
-                    bit4: (payload >> 3) & 1,
-                    bit5: (payload >> 4) & 1,
-                    bit6: (payload >> 5) & 1,
-                    bit7: (payload >> 6) & 1,
-                    bit8: (payload >> 7) & 1
+                    bit1: (bytes >> 0) & 1,
+                    bit2: (bytes >> 1) & 1,
+                    bit3: (bytes >> 2) & 1,
+                    bit4: (bytes >> 3) & 1,
+                    bit5: (bytes >> 4) & 1,
+                    bit6: (bytes >> 5) & 1,
+                    bit7: (bytes >> 6) & 1,
+                    bit8: (bytes >> 7) & 1
                 }
                 break;
             case 113:   // Accelerometer
