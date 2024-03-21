@@ -17,9 +17,6 @@ uint8_t CayenneLPP::getSize(void) {
 }
 
 uint8_t* CayenneLPP::getBuffer(void) {
-//    uint8_t[cursor] result;
-//    memcpy(result, buffer, cursor);
-//    return result;
     return buffer;
 }
 
@@ -29,13 +26,13 @@ uint8_t CayenneLPP::copy(uint8_t* dst) {
 }
 
 uint8_t CayenneLPP::addBit(uint8_t channel, uint8_t value) {
-    
     buffer[cursor++] = channel;
     buffer[cursor++] = LPP_ADDBIT;
     buffer[cursor++] = value >> 8; 
 
     return cursor;
 }
+
 
 uint8_t CayenneLPP::addCustomByte(uint8_t channel, uint16_t type, float value, uint16_t resolution, uint8_t num_bytes){
     buffer[cursor++] = channel;
@@ -57,17 +54,17 @@ uint8_t CayenneLPP::addCustomByte(uint8_t channel, uint16_t type, float value, u
 
 
 
-uint8_t CayenneLPP::addByte(uint8_t channel, uint16_t type, uint8_t value, uint16_t resolution) {
 
+uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution) {
+    uint8_t valueScaled = value *resolution;
     buffer[cursor++] = channel;
-    buffer[cursor++] = LPP_ADDBYTE;
-    buffer[cursor++] = value;
+    buffer[cursor++] = type;
+    buffer[cursor++] = valueScaled;
 
     return cursor;
 }
 
-uint8_t CayenneLPP::add2Bytes(uint8_t channel, uint16_t type, uint16_t value, uint16_t resolution)  {
-
+uint8_t CayenneLPP::add2Bytes(uint8_t channel, uint8_t type, float value, uint8_t resolution)  {
     uint16_t valueScaled = value *resolution;
     buffer[cursor++] = channel;
     buffer[cursor++] = type;
@@ -77,8 +74,7 @@ uint8_t CayenneLPP::add2Bytes(uint8_t channel, uint16_t type, uint16_t value, ui
     return cursor;
 }
 
-uint8_t CayenneLPP::add4Bytes(uint8_t channel, uint16_t type, uint32_t value, uint16_t resolution){
- 
+uint8_t CayenneLPP::add4Bytes(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution){
     buffer[cursor++] = channel;
     buffer[cursor++] = LPP_ADD4BYTES;
     buffer[cursor++] = (value >> 24) & 0xFF;  // Store the most significant byte
@@ -89,7 +85,7 @@ uint8_t CayenneLPP::add4Bytes(uint8_t channel, uint16_t type, uint32_t value, ui
     return cursor;
 }
 
-uint8_t CayenneLPP::addFloat(uint8_t channel, uint16_t type, float value, uint16_t resolution){
+uint8_t CayenneLPP::addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution){
     int32_t scaledValue = value * 10000000; // scale by 10^7 for 0.0000001 resolution
 
     buffer[cursor++] = channel;
@@ -102,8 +98,46 @@ uint8_t CayenneLPP::addFloat(uint8_t channel, uint16_t type, float value, uint16
     buffer[cursor++] = scaledValue;        // Least significant byte
     return cursor;
 }
+ 
+uint8_t CayenneLPP::add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint8_t resolution){
+  if (type == LPP_GPS_SIZE){
+    int32_t lat = x * 100 * resolution; //resolution has to be 100
+    int32_t lon = y * 100 * resolution;
+    int32_t alt = z * 1;
+  
+    buffer[cursor++] = channel;
+    buffer[cursor++] = LPP_GPS;
+    buffer[cursor++] = lat >> 16;
+    buffer[cursor++] = lat >> 8;
+    buffer[cursor++] = lat;
+    buffer[cursor++] = lon >> 16;
+    buffer[cursor++] = lon >> 8;
+    buffer[cursor++] = lon;
+    buffer[cursor++] = alt >> 16;
+    buffer[cursor++] = alt >> 8;
+    buffer[cursor++] = alt;
+  
+    return cursor;
+  } else {
+    int32_t vx = x * resolution; //addAccelerometer 1000, 
+    int32_t vy = y * resolution; //addGyrometer, 100
+    int32_t vz = z * resolution;
+    
+    buffer[cursor++] = channel;
+    buffer[cursor++] = type;
+    buffer[cursor++] = vx >> 8;
+    buffer[cursor++] = vx;
+    buffer[cursor++] = vy >> 8;
+    buffer[cursor++] = vy;
+    buffer[cursor++] = vz >> 8;
+    buffer[cursor++] = vz;
+  
+    return cursor;
+  }
+}
 
-uint8_t CayenneLPP::addDigitalInput(uint8_t channel, uint8_t value)
+
+/*uint8_t CayenneLPP::addDigitalInput(uint8_t channel, uint8_t value)
 {
   if ((cursor + LPP_DIGITAL_INPUT_SIZE) > maxsize)
   {
@@ -114,9 +148,9 @@ uint8_t CayenneLPP::addDigitalInput(uint8_t channel, uint8_t value)
   buffer[cursor++] = value;
 
   return cursor;
-}
+}*/
 
-uint8_t CayenneLPP::addDigitalOutput(uint8_t channel, uint8_t value)
+/*uint8_t CayenneLPP::addDigitalOutput(uint8_t channel, uint8_t value)
 {
   if ((cursor + LPP_DIGITAL_OUTPUT_SIZE) > maxsize)
   {
@@ -127,7 +161,7 @@ uint8_t CayenneLPP::addDigitalOutput(uint8_t channel, uint8_t value)
   buffer[cursor++] = value;
 
   return cursor;
-}
+}*/
 
 uint8_t CayenneLPP::addAnalogInput(uint8_t channel, float value)
 {
@@ -208,9 +242,10 @@ uint8_t CayenneLPP::addRelativeHumidity(uint8_t channel, float rh)
   {
     return 0;
   }
+  int8_t val = rh * 2;
   buffer[cursor++] = channel;
   buffer[cursor++] = LPP_RELATIVE_HUMIDITY;
-  buffer[cursor++] = rh * 2;
+  buffer[cursor++] = val;
 
   return cursor;
 }

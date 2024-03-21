@@ -300,14 +300,18 @@ void loop(){
   lpp.add2Bytes(LPP_CH_TEMPERATURE,LPP_TEMPERATURE, temperature, 10);
   lpp.addCustomByte(LPP_CH_CUSTOMBYTE, LPP_CUSTOMBYTE, custom, 10, 2);
 
-  lpp.addRelativeHumidity(LPP_CH_HUMIDITY, humidity);
-  lpp.addLuminosity(LPP_CH_LUMINOSITY, luminosity);
-  lpp.addDigitalInput(LPP_CH_ROTARYSWITCH, rotaryPosition);
-  lpp.addAccelerometer(LPP_CH_ACCELEROMETER, x, y, z);
-  lpp.addAnalogInput(LPP_CH_BOARDVCCVOLTAGE, vdd);
-  lpp.addPresence(LPP_CH_PRESENCE, SAFE);
 
-  lpp.addAnalogOutput(LPP_CH_SET_INTERVAL, (float)currentInterval/1000);
+
+  
+  lpp.add2Bytes(LPP_CH_TEMPERATURE, LPP_TEMPERATURE, temperature, 10);
+  lpp.addByte(LPP_CH_HUMIDITY, LPP_RELATIVE_HUMIDITY, humidity, 2);
+  lpp.add2Bytes(LPP_CH_LUMINOSITY, LPP_LUMINOSITY, luminosity, 1);
+  lpp.addByte(LPP_CH_ROTARYSWITCH, LPP_DIGITAL_INPUT, rotaryPosition, 1);
+  //lpp.addAccelerometer(LPP_CH_ACCELEROMETER, x, y, z);
+  lpp.add3Float(LPP_CH_ACCELEROMETER, LPP_ACCELEROMETER, x, y, z, 10);
+  lpp.add2Bytes(LPP_CH_BOARDVCCVOLTAGE, LPP_ANALOG_INPUT, vdd, 100);
+  lpp.addByte(LPP_CH_PRESENCE, LPP_PRESENCE, SAFE, 1);
+  lpp.add2Bytes(LPP_CH_SET_INTERVAL, LPP_ANALOG_OUTPUT, (float)currentInterval/1000, 100);
 
   
   Serial.print("lpp.getSize()");
@@ -499,7 +503,8 @@ static void sleep(uint32_t delay_time_ms){
         
       lpp.reset();
       lpp.addPresence(LPP_CH_PRESENCE, ALARM);
-      lpp.addDigitalInput(LPP_CH_SW_RELEASE, RELEASE);
+      //lpp.addDigitalInput(LPP_CH_SW_RELEASE, RELEASE);
+      lpp.addByte(LPP_CH_SW_RELEASE, LPP_DIGITAL_INPUT, RELEASE, 1);
   
       // Send it off
       ttn.sendBytes(lpp.getBuffer(), lpp.getSize(), APPLICATION_PORT_CAYENNE, true);
