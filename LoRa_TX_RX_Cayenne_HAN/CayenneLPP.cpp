@@ -37,6 +37,26 @@ uint8_t CayenneLPP::addBit(uint8_t channel, uint8_t value) {
     return cursor;
 }
 
+uint8_t CayenneLPP::addCustomByte(uint8_t channel, uint16_t type, float value, uint16_t resolution, uint8_t num_bytes){
+    buffer[cursor++] = channel;
+    buffer[cursor++] = type;
+    buffer[cursor++] = num_bytes;
+    buffer[cursor++] = resolution;
+
+    uint32_t valueScaled = value * resolution;
+
+    for (int byteIndex = num_bytes - 1; byteIndex >= 0; --byteIndex) {
+    // Shift the scaled value to the right to isolate the current byte
+    uint8_t byteValue = (valueScaled >> (byteIndex * 8)) & 0xFF;
+    // Store the extracted byte in the buffer
+    buffer[cursor++] = byteValue;
+    }
+
+    return cursor;
+}
+
+
+
 uint8_t CayenneLPP::addByte(uint8_t channel, uint16_t type, uint8_t value, uint16_t resolution) {
 
     buffer[cursor++] = channel;

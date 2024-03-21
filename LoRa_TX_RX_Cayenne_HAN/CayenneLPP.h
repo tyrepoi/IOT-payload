@@ -37,6 +37,7 @@
 #define LPP_ADD2BYTES 6             /// \ Identifier for additional 2-byte data type (2 bytes)
 #define LPP_ADD4BYTES 7             /// \ Identifier for additional 4-byte data type (4 bytes)
 #define LPP_ADDFLOAT 8              /// \ Identifier for additional floating-point data type
+#define LPP_CUSTOMBYTE 9
 #define LPP_LUMINOSITY 101          /// \ Identifier for luminosity data type (2 bytes, 1 lux unsigned)
 #define LPP_PRESENCE 102            /// \ Identifier for presence data type (1 byte, 1)
 #define LPP_TEMPERATURE 103         /// \ Identifier for temperature data type (2 bytes, 0.1°C signed)
@@ -107,6 +108,8 @@ public:
 	 * @param channel Channel number.
 	 */
 	uint8_t addBit(uint8_t channel, uint8_t value);
+
+  uint8_t addCustomByte(uint8_t channel, uint16_t type, float value, uint16_t resolution, uint8_t num_bytes);
 
 	/**
 	 * @brief Add a byte value to the LPP packet.
