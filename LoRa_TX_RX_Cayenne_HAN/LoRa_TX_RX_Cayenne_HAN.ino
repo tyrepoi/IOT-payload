@@ -292,7 +292,7 @@ void loop(){
 
 
   //lpp.add2Bytes(LPP_CH_TEMPERATURE,LPP_TEMPERATURE, temperature, 10);
-  lpp.addCustomByte(LPP_CH_CUSTOMBYTE, LPP_CUSTOMBYTE, custom, 10, 2);
+  //lpp.addCustomByte(LPP_CH_CUSTOMBYTE, LPP_CUSTOMBYTE, custom, 10, 2);
 
   lpp.addWord(LPP_CH_TEMPERATURE, LPP_TEMPERATURE, temperature, 10);
   lpp.addByte(LPP_CH_HUMIDITY, LPP_RELATIVE_HUMIDITY, humidity, 2);
