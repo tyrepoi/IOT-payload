@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['the_20mainpage_0',['This is the mainpage',['../index.html',1,'']]],
-  ['thethingsnetwork_1',['TheThingsNetwork',['../class_the_things_network.html',1,'']]],
-  ['this_20is_20the_20mainpage_2',['This is the mainpage',['../index.html',1,'']]]
+  ['kiss_20lora_20device_0',['Kiss LoRa Device',['../index.html#autotoc_md3',1,'']]]
 ];

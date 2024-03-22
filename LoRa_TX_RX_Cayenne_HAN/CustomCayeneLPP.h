@@ -67,128 +67,129 @@
  */
 class CayenneLPP {
 public:
-  /**
+	/**
 	 * @brief Constructor for CayenneLPP class.
 	 * @param size Maximum size of the LPP packet.
 	 */
-  CayenneLPP(uint8_t size);
+	CayenneLPP(uint8_t size);
 
-  /**
+	/**
 	 * @brief Destructor for CayenneLPP class.
 	 */
-  ~CayenneLPP();
+	~CayenneLPP();
 
-  /**
+	/**
 	 * @brief Reset the LPP packet buffer.
 	 */
-  void reset(void);
+	void reset(void);
 
-  /**
+	/**
 	 * @brief Get the size of the LPP packet buffer.
 	 * @return Size of the LPP packet buffer.
 	 */
-  uint8_t getSize(void);
+	uint8_t getSize(void);
 
-  /**
+	/**
 	 * @brief Get a pointer to the LPP packet buffer.
 	 * @return Pointer to the LPP packet buffer.
 	 */
-  uint8_t *getBuffer(void);
+	uint8_t *getBuffer(void);
 
-  /**
+	/**
 	 * @brief Copy the LPP packet buffer to an external buffer.
 	 * @param buffer External buffer to copy the LPP packet buffer into.
 	 * @return Number of bytes copied.
 	 */
-  uint8_t copy(uint8_t *buffer);
+	uint8_t copy(uint8_t *buffer);
 
-  /**
-   * @brief Add a single bit value to the LPP packet.
-   * @param channel Channel number.
-   * @param type Data type identifier determining how the value will be interpreted.
-   * @param value Bit value to be added to the LPP packet.
-   */
-  uint8_t addBit(uint8_t channel, uint8_t type, uint8_t value);
+	/**
+	 * @brief Add a single bit value to the LPP packet.
+	 * @param channel Channel number.
+	 * @param type Data type identifier determining how the value will be interpreted.
+	 * @param value Bit value to be added to the LPP packet.
+	 */
+	uint8_t addBit(uint8_t channel, uint8_t type, uint8_t value);
 
-  /**
+	/**
 	 * @brief Add value to how much bytes you want, you can also change the sensor type, resolution and sign
 	 * @param channel Channel number.
-   * @param type the type of sensor or if added new paramaters use custom 
-   * @param resolution how many decimals it has (1000 max)
-   * @param num_bytes how many bytes will the message contain (7 bytes max)
-   * @param implemented a function that can add custom parameters to the encoder
+	 * @param type the type of sensor or if added new paramaters use custom 
+	 * @param resolution how many decimals it has (1000 max)
+	 * @param num_bytes how many bytes will the message contain (7 bytes max)
+	 * @param implemented a function that can add custom parameters to the encoder
 	 * @param value value of the desired data transfer
 	 */
 
-  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes);
-  /**
+	uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes);
+	/**
 	 * @brief Add a byte value to the LPP packet.
 	 * @param channel Channel number.
-   * @param type Type the function is designed to handle different types of data, such as digital inputs, digital outputs, and presence indicators
-   * @param value Bit value to be added to the LPP packet.
-   * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
-   * @return Status code indicating the success of the operation.
+	 * @param type Type the function is designed to handle different types of data, such as digital inputs, digital outputs, and presence indicators
+	 * @param value Bit value to be added to the LPP packet.
+	 * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
+	 * @return Status code indicating the success of the operation.
 	 */
-  uint8_t addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+	uint8_t addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution);
 
-  /**
+	/**
 	 * @brief Add a two-byte value to the LPP packet.
 	 * @param channel Channel number.
-   * @param type Type the function is designed to handle different types of data, such as temperature, luminosity, analogInput, analogOutput, relativeHumidity, barometricPressure
+	 * @param type Type the function is designed to handle different types of data, such as temperature, luminosity, analogInput, analogOutput, relativeHumidity, barometricPressure
 	 * @param value Two-byte value to be added to the LPP packet.
-   * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
-   * @return Status code indicating the success of the operation.
-   */
-  uint8_t addWord(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+	 * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
+	 * @return Status code indicating the success of the operation.
+	 */
+	uint8_t addWord(uint8_t channel, uint8_t type, float value, uint8_t resolution);
 
-  /**
+	/**
 	 * @brief Add a four-byte value to the LPP packet.
 	 * @param channel Channel number.
-   * @param type Type
+	 * @param type Type
 	 * @param value Four-byte value to be added to the LPP packet.
 	 * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
-   * @return Status code indicating the success of the operation.
-   */
-  uint8_t addDoubleWord(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution);
+	 * @return Status code indicating the success of the operation.
+	 */
+	uint8_t addDoubleWord(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution);
 
-  /**
+	/**
 	 * @brief Add a floating-point value to the LPP packet.
 	 * @param channel Channel number.
-   * @param type Type
+	 * @param type Type
 	 * @param value Floating-point value to be added to the LPP packet.
-   * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
-   * @return Status code indicating the success of the operation.
+	 * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
+	 * @return Status code indicating the success of the operation.
 	 */
-  uint8_t addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+	uint8_t addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution);
 
-  /**
-   * @brief Add a 3float value to the LPP packet.
-   * @param channel Channel number.
-   * @param type Type
-   * @param value Floating-point value to be added to the LPP packet.
-   * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
-   */
-  uint8_t add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint8_t resolution);
+	/**
+	 * @brief Add a 3float value to the LPP packet.
+	 * @param channel Channel number.
+	 * @param type Type
+	 * @param value Floating-point value to be added to the LPP packet.
+	 * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
+	 * @return Status code indicating the success of the operation.
+	 */
+	uint8_t add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint8_t resolution);
 
 private:
 
-  /**
+	/**
 	 * @brief Pointer to the LPP packet buffer.
 	 * This variable holds the memory address of the LPP packet buffer.
 	 */
-  uint8_t *buffer;
+	uint8_t *buffer;
 
-  /**
+	/**
 	 * @brief Maximum size of the LPP packet buffer.
 	 * This variable stores the maximum size of the LPP packet buffer.
 	 */
-  uint8_t maxsize;
+	uint8_t maxsize;
 
-  /**
+	/**
 	 * @brief Cursor indicating the current position in the buffer.
 	 * This variable represents the current position within the LPP packet buffer.
 	 */
-  uint8_t cursor;
+	uint8_t cursor;
 };
 
 #endif

@@ -1,0 +1,280 @@
+\doxysection{Cayenne\+LPP Class Reference}
+\hypertarget{class_cayenne_l_p_p}{}\label{class_cayenne_l_p_p}\index{CayenneLPP@{CayenneLPP}}
+
+
+Cayenne Low Power Protocol (LPP) packet builder class. This class provides methods to build Cayenne LPP packets for sending sensor data over Lo\+Ra\+WAN.  
+
+
+
+
+{\ttfamily \#include $<$Custom\+Cayene\+LPP.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_cayenne_l_p_p_a36adb2a5b4762d16d2f185e14ff69622}{Cayenne\+LPP}} (uint8\+\_\+t size)
+\begin{DoxyCompactList}\small\item\em Constructor for \doxylink{class_cayenne_l_p_p}{Cayenne\+LPP} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_cayenne_l_p_p_a87ca867c5f9516622e02e0199d357fac}\label{class_cayenne_l_p_p_a87ca867c5f9516622e02e0199d357fac} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+Cayenne\+LPP} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{class_cayenne_l_p_p}{Cayenne\+LPP} class. \end{DoxyCompactList}\item 
+\Hypertarget{class_cayenne_l_p_p_aa34ffe8eae08b7e69b288fa213aac594}\label{class_cayenne_l_p_p_aa34ffe8eae08b7e69b288fa213aac594} 
+void {\bfseries reset} (void)
+\begin{DoxyCompactList}\small\item\em Reset the LPP packet buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_a82b65449c4987cb435ec4f1f94cd16d5}{get\+Size}} (void)
+\begin{DoxyCompactList}\small\item\em Get the size of the LPP packet buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_cayenne_l_p_p_a76e9b677f69f82e58875af03c3da68c4}{get\+Buffer}} (void)
+\begin{DoxyCompactList}\small\item\em Get a pointer to the LPP packet buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_a18472d3f416a889d3c64dcc3be416e14}{copy}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Copy the LPP packet buffer to an external buffer. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_a9d8a1b4bab9e4a9eb894c3c35103ea10}{add\+Bit}} (uint8\+\_\+t channel, uint8\+\_\+t type, uint8\+\_\+t value)
+\begin{DoxyCompactList}\small\item\em Add a single bit value to the LPP packet. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_ae9d786c9d5332143e8519cb5f7017e16}{add\+Custom\+Byte}} (uint8\+\_\+t channel, uint8\+\_\+t type, float value, uint16\+\_\+t resolution, uint8\+\_\+t num\+\_\+bytes)
+\begin{DoxyCompactList}\small\item\em Add value to how much bytes you want, you can also change the sensor type, resolution and sign. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_ada4e5c5aedbba4090f6037c8607bce13}{add\+Byte}} (uint8\+\_\+t channel, uint8\+\_\+t type, float value, uint8\+\_\+t resolution)
+\begin{DoxyCompactList}\small\item\em Add a byte value to the LPP packet. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_a00656772e262c87786504102fd9dacf3}{add\+Word}} (uint8\+\_\+t channel, uint8\+\_\+t type, float value, uint8\+\_\+t resolution)
+\begin{DoxyCompactList}\small\item\em Add a two-\/byte value to the LPP packet. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_a445b42e7d9e2da2766d5978889089aa1}{add\+Double\+Word}} (uint8\+\_\+t channel, uint8\+\_\+t type, uint32\+\_\+t value, uint8\+\_\+t resolution)
+\begin{DoxyCompactList}\small\item\em Add a four-\/byte value to the LPP packet. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_a88992d4725092f5e169e9ab12b77084e}{add\+Float}} (uint8\+\_\+t channel, uint8\+\_\+t type, float value, uint8\+\_\+t resolution)
+\begin{DoxyCompactList}\small\item\em Add a floating-\/point value to the LPP packet. \end{DoxyCompactList}\item 
+uint8\+\_\+t \mbox{\hyperlink{class_cayenne_l_p_p_a1ed48493aa67573db8ed3d6f25fa171c}{add3\+Float}} (uint8\+\_\+t channel, uint8\+\_\+t type, float x, float y, float z, uint8\+\_\+t resolution)
+\begin{DoxyCompactList}\small\item\em Add a 3float value to the LPP packet. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Cayenne Low Power Protocol (LPP) packet builder class. This class provides methods to build Cayenne LPP packets for sending sensor data over Lo\+Ra\+WAN. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_cayenne_l_p_p_a36adb2a5b4762d16d2f185e14ff69622}\label{class_cayenne_l_p_p_a36adb2a5b4762d16d2f185e14ff69622} 
+\index{CayenneLPP@{CayenneLPP}!CayenneLPP@{CayenneLPP}}
+\index{CayenneLPP@{CayenneLPP}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{CayenneLPP()}{CayenneLPP()}}
+{\footnotesize\ttfamily Cayenne\+LPP\+::\+Cayenne\+LPP (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Constructor for \doxylink{class_cayenne_l_p_p}{Cayenne\+LPP} class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & Maximum size of the LPP packet. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_cayenne_l_p_p_a1ed48493aa67573db8ed3d6f25fa171c}\label{class_cayenne_l_p_p_a1ed48493aa67573db8ed3d6f25fa171c} 
+\index{CayenneLPP@{CayenneLPP}!add3Float@{add3Float}}
+\index{add3Float@{add3Float}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{add3Float()}{add3Float()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::add3\+Float (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{uint8\+\_\+t}]{type,  }\item[{float}]{x,  }\item[{float}]{y,  }\item[{float}]{z,  }\item[{uint8\+\_\+t}]{resolution }\end{DoxyParamCaption})}
+
+
+
+Add a 3float value to the LPP packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & Channel number. \\
+\hline
+{\em type} & Type \\
+\hline
+{\em value} & Floating-\/point value to be added to the LPP packet. \\
+\hline
+{\em resolution} & Resolution of the value, used for interpretation (e.\+g., scaling). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code indicating the success of the operation. 
+\end{DoxyReturn}
+\Hypertarget{class_cayenne_l_p_p_a9d8a1b4bab9e4a9eb894c3c35103ea10}\label{class_cayenne_l_p_p_a9d8a1b4bab9e4a9eb894c3c35103ea10} 
+\index{CayenneLPP@{CayenneLPP}!addBit@{addBit}}
+\index{addBit@{addBit}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{addBit()}{addBit()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::add\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{uint8\+\_\+t}]{type,  }\item[{uint8\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Add a single bit value to the LPP packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & Channel number. \\
+\hline
+{\em type} & Data type identifier determining how the value will be interpreted. \\
+\hline
+{\em value} & Bit value to be added to the LPP packet. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_cayenne_l_p_p_ada4e5c5aedbba4090f6037c8607bce13}\label{class_cayenne_l_p_p_ada4e5c5aedbba4090f6037c8607bce13} 
+\index{CayenneLPP@{CayenneLPP}!addByte@{addByte}}
+\index{addByte@{addByte}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{addByte()}{addByte()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::add\+Byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{uint8\+\_\+t}]{type,  }\item[{float}]{value,  }\item[{uint8\+\_\+t}]{resolution }\end{DoxyParamCaption})}
+
+
+
+Add a byte value to the LPP packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & Channel number. \\
+\hline
+{\em type} & Type the function is designed to handle different types of data, such as digital inputs, digital outputs, and presence indicators \\
+\hline
+{\em value} & Bit value to be added to the LPP packet. \\
+\hline
+{\em resolution} & Resolution of the value, used for interpretation (e.\+g., scaling). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code indicating the success of the operation. 
+\end{DoxyReturn}
+\Hypertarget{class_cayenne_l_p_p_ae9d786c9d5332143e8519cb5f7017e16}\label{class_cayenne_l_p_p_ae9d786c9d5332143e8519cb5f7017e16} 
+\index{CayenneLPP@{CayenneLPP}!addCustomByte@{addCustomByte}}
+\index{addCustomByte@{addCustomByte}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{addCustomByte()}{addCustomByte()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::add\+Custom\+Byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{uint8\+\_\+t}]{type,  }\item[{float}]{value,  }\item[{uint16\+\_\+t}]{resolution,  }\item[{uint8\+\_\+t}]{num\+\_\+bytes }\end{DoxyParamCaption})}
+
+
+
+Add value to how much bytes you want, you can also change the sensor type, resolution and sign. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & Channel number. \\
+\hline
+{\em type} & the type of sensor or if added new paramaters use custom \\
+\hline
+{\em resolution} & how many decimals it has (1000 max) \\
+\hline
+{\em num\+\_\+bytes} & how many bytes will the message contain (7 bytes max) \\
+\hline
+{\em implemented} & a function that can add custom parameters to the encoder \\
+\hline
+{\em value} & value of the desired data transfer \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_cayenne_l_p_p_a445b42e7d9e2da2766d5978889089aa1}\label{class_cayenne_l_p_p_a445b42e7d9e2da2766d5978889089aa1} 
+\index{CayenneLPP@{CayenneLPP}!addDoubleWord@{addDoubleWord}}
+\index{addDoubleWord@{addDoubleWord}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{addDoubleWord()}{addDoubleWord()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::add\+Double\+Word (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{uint8\+\_\+t}]{type,  }\item[{uint32\+\_\+t}]{value,  }\item[{uint8\+\_\+t}]{resolution }\end{DoxyParamCaption})}
+
+
+
+Add a four-\/byte value to the LPP packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & Channel number. \\
+\hline
+{\em type} & Type \\
+\hline
+{\em value} & Four-\/byte value to be added to the LPP packet. \\
+\hline
+{\em resolution} & Resolution of the value, used for interpretation (e.\+g., scaling). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code indicating the success of the operation. 
+\end{DoxyReturn}
+\Hypertarget{class_cayenne_l_p_p_a88992d4725092f5e169e9ab12b77084e}\label{class_cayenne_l_p_p_a88992d4725092f5e169e9ab12b77084e} 
+\index{CayenneLPP@{CayenneLPP}!addFloat@{addFloat}}
+\index{addFloat@{addFloat}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{addFloat()}{addFloat()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::add\+Float (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{uint8\+\_\+t}]{type,  }\item[{float}]{value,  }\item[{uint8\+\_\+t}]{resolution }\end{DoxyParamCaption})}
+
+
+
+Add a floating-\/point value to the LPP packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & Channel number. \\
+\hline
+{\em type} & Type \\
+\hline
+{\em value} & Floating-\/point value to be added to the LPP packet. \\
+\hline
+{\em resolution} & Resolution of the value, used for interpretation (e.\+g., scaling). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code indicating the success of the operation. 
+\end{DoxyReturn}
+\Hypertarget{class_cayenne_l_p_p_a00656772e262c87786504102fd9dacf3}\label{class_cayenne_l_p_p_a00656772e262c87786504102fd9dacf3} 
+\index{CayenneLPP@{CayenneLPP}!addWord@{addWord}}
+\index{addWord@{addWord}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{addWord()}{addWord()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::add\+Word (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{channel,  }\item[{uint8\+\_\+t}]{type,  }\item[{float}]{value,  }\item[{uint8\+\_\+t}]{resolution }\end{DoxyParamCaption})}
+
+
+
+Add a two-\/byte value to the LPP packet. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em channel} & Channel number. \\
+\hline
+{\em type} & Type the function is designed to handle different types of data, such as temperature, luminosity, analog\+Input, analog\+Output, relative\+Humidity, barometric\+Pressure \\
+\hline
+{\em value} & Two-\/byte value to be added to the LPP packet. \\
+\hline
+{\em resolution} & Resolution of the value, used for interpretation (e.\+g., scaling). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Status code indicating the success of the operation. 
+\end{DoxyReturn}
+\Hypertarget{class_cayenne_l_p_p_a18472d3f416a889d3c64dcc3be416e14}\label{class_cayenne_l_p_p_a18472d3f416a889d3c64dcc3be416e14} 
+\index{CayenneLPP@{CayenneLPP}!copy@{copy}}
+\index{copy@{copy}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::copy (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Copy the LPP packet buffer to an external buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & External buffer to copy the LPP packet buffer into. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of bytes copied. 
+\end{DoxyReturn}
+\Hypertarget{class_cayenne_l_p_p_a76e9b677f69f82e58875af03c3da68c4}\label{class_cayenne_l_p_p_a76e9b677f69f82e58875af03c3da68c4} 
+\index{CayenneLPP@{CayenneLPP}!getBuffer@{getBuffer}}
+\index{getBuffer@{getBuffer}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{getBuffer()}{getBuffer()}}
+{\footnotesize\ttfamily uint8\+\_\+t \texorpdfstring{$\ast$}{*} Cayenne\+LPP\+::get\+Buffer (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get a pointer to the LPP packet buffer. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the LPP packet buffer. 
+\end{DoxyReturn}
+\Hypertarget{class_cayenne_l_p_p_a82b65449c4987cb435ec4f1f94cd16d5}\label{class_cayenne_l_p_p_a82b65449c4987cb435ec4f1f94cd16d5} 
+\index{CayenneLPP@{CayenneLPP}!getSize@{getSize}}
+\index{getSize@{getSize}!CayenneLPP@{CayenneLPP}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily uint8\+\_\+t Cayenne\+LPP\+::get\+Size (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Get the size of the LPP packet buffer. 
+
+\begin{DoxyReturn}{Returns}
+Size of the LPP packet buffer. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN/\mbox{\hyperlink{_custom_cayene_l_p_p_8h}{Custom\+Cayene\+LPP.\+h}}\item 
+Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN/Custom\+Cayene\+LPP.\+cpp\end{DoxyCompactItemize}

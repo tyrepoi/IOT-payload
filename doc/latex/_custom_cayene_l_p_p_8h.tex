@@ -1,0 +1,128 @@
+\doxysection{Lo\+Ra\+\_\+\+TX\+\_\+\+RX\+\_\+\+Cayenne\+\_\+\+HAN/\+Custom\+Cayene\+LPP.h File Reference}
+\hypertarget{_custom_cayene_l_p_p_8h}{}\label{_custom_cayene_l_p_p_8h}\index{LoRa\_TX\_RX\_Cayenne\_HAN/CustomCayeneLPP.h@{LoRa\_TX\_RX\_Cayenne\_HAN/CustomCayeneLPP.h}}
+
+
+Custom Library for creating Cayenne Low Power Payload (LPP) packets.  
+
+
+{\ttfamily \#include $<$Arduino.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_cayenne_l_p_p}{Cayenne\+LPP}}
+\begin{DoxyCompactList}\small\item\em Cayenne Low Power Protocol (LPP) packet builder class. This class provides methods to build Cayenne LPP packets for sending sensor data over Lo\+Ra\+WAN. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_af73c785df91c148a1ea8406860d5b729}\label{_custom_cayene_l_p_p_8h_af73c785df91c148a1ea8406860d5b729} 
+\#define {\bfseries LPP\+\_\+\+DIGITAL\+\_\+\+INPUT}~0
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a24d28012958ad6674fdd5df7a8d18f6e}\label{_custom_cayene_l_p_p_8h_a24d28012958ad6674fdd5df7a8d18f6e} 
+\#define {\bfseries LPP\+\_\+\+DIGITAL\+\_\+\+OUTPUT}~1
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_ab366fd0fa66084a103746be97cfe47c6}\label{_custom_cayene_l_p_p_8h_ab366fd0fa66084a103746be97cfe47c6} 
+\#define {\bfseries LPP\+\_\+\+ANALOG\+\_\+\+INPUT}~2
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_ad61093a10fb1ae905314ea753f0f2ffc}\label{_custom_cayene_l_p_p_8h_ad61093a10fb1ae905314ea753f0f2ffc} 
+\#define {\bfseries LPP\+\_\+\+ANALOG\+\_\+\+OUTPUT}~3
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a12755ac83077e380f18547062908f63b}\label{_custom_cayene_l_p_p_8h_a12755ac83077e380f18547062908f63b} 
+\#define {\bfseries LPP\+\_\+\+ADDBIT}~4
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a14663655c2efb9341da803216ce5090c}\label{_custom_cayene_l_p_p_8h_a14663655c2efb9341da803216ce5090c} 
+\#define {\bfseries LPP\+\_\+\+ADDBYTE}~5
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a96c5cfbc0e0d1663384fdb7a62b979fe}\label{_custom_cayene_l_p_p_8h_a96c5cfbc0e0d1663384fdb7a62b979fe} 
+\#define {\bfseries LPP\+\_\+\+ADDWORD}~6
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_abc2027ba2f83c933d984407331160f46}\label{_custom_cayene_l_p_p_8h_abc2027ba2f83c933d984407331160f46} 
+\#define {\bfseries LPP\+\_\+\+ADDDOUBLEWORD}~7
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a760cdc3e1d6b30c0d832bc8002c31f3a}\label{_custom_cayene_l_p_p_8h_a760cdc3e1d6b30c0d832bc8002c31f3a} 
+\#define {\bfseries LPP\+\_\+\+ADDFLOAT}~8
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a1a9bdd71cafcc53c7488c884a5acc9d8}\label{_custom_cayene_l_p_p_8h_a1a9bdd71cafcc53c7488c884a5acc9d8} 
+\#define {\bfseries LPP\+\_\+\+CUSTOMBYTE}~9
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a7343ce0a2d75023cd0061cc68e736d95}\label{_custom_cayene_l_p_p_8h_a7343ce0a2d75023cd0061cc68e736d95} 
+\#define {\bfseries LPP\+\_\+\+LUMINOSITY}~101
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a587380c128da0e2c48938797ebc54a96}\label{_custom_cayene_l_p_p_8h_a587380c128da0e2c48938797ebc54a96} 
+\#define {\bfseries LPP\+\_\+\+PRESENCE}~102
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a79aeb46b202febad2d10d6870078f7c5}\label{_custom_cayene_l_p_p_8h_a79aeb46b202febad2d10d6870078f7c5} 
+\#define {\bfseries LPP\+\_\+\+TEMPERATURE}~103
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a110ffd161d02e7a2129a81a24384970f}\label{_custom_cayene_l_p_p_8h_a110ffd161d02e7a2129a81a24384970f} 
+\#define {\bfseries LPP\+\_\+\+RELATIVE\+\_\+\+HUMIDITY}~104
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a787217953e164d413891ddc348067c6b}\label{_custom_cayene_l_p_p_8h_a787217953e164d413891ddc348067c6b} 
+\#define {\bfseries LPP\+\_\+\+ACCELEROMETER}~113
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a1f3f07858065ce332cac5e8c798a4a73}\label{_custom_cayene_l_p_p_8h_a1f3f07858065ce332cac5e8c798a4a73} 
+\#define {\bfseries LPP\+\_\+\+BAROMETRIC\+\_\+\+PRESSURE}~115
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a08efb5c12f5a2ffd29e2da37083ee8c2}\label{_custom_cayene_l_p_p_8h_a08efb5c12f5a2ffd29e2da37083ee8c2} 
+\#define {\bfseries LPP\+\_\+\+GYROMETER}~134
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_acb4159751240729d38d67119ed8ed6a9}\label{_custom_cayene_l_p_p_8h_acb4159751240729d38d67119ed8ed6a9} 
+\#define {\bfseries LPP\+\_\+\+GPS}~136
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_abdee9dc67a518f4edaa01c6dcbb5fb30}\label{_custom_cayene_l_p_p_8h_abdee9dc67a518f4edaa01c6dcbb5fb30} 
+\#define {\bfseries LPP\+\_\+\+DIGITAL\+\_\+\+INPUT\+\_\+\+SIZE}~3
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a2a532343518143a7a943480758973582}\label{_custom_cayene_l_p_p_8h_a2a532343518143a7a943480758973582} 
+\#define {\bfseries LPP\+\_\+\+DIGITAL\+\_\+\+OUTPUT\+\_\+\+SIZE}~3
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_af8fece641011476605e2986324026927}\label{_custom_cayene_l_p_p_8h_af8fece641011476605e2986324026927} 
+\#define {\bfseries LPP\+\_\+\+ANALOG\+\_\+\+INPUT\+\_\+\+SIZE}~4
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_ad78c649ae3462cfac7c685822fac5a09}\label{_custom_cayene_l_p_p_8h_ad78c649ae3462cfac7c685822fac5a09} 
+\#define {\bfseries LPP\+\_\+\+ANALOG\+\_\+\+OUTPUT\+\_\+\+SIZE}~3
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a5909d544aaf2fb67ff5c399a8a7e03e4}\label{_custom_cayene_l_p_p_8h_a5909d544aaf2fb67ff5c399a8a7e03e4} 
+\#define {\bfseries LPP\+\_\+\+LUMINOSITY\+\_\+\+SIZE}~4
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_accc3c02a09bc138eac1df9351c3dc1d5}\label{_custom_cayene_l_p_p_8h_accc3c02a09bc138eac1df9351c3dc1d5} 
+\#define {\bfseries LPP\+\_\+\+PRESENCE\+\_\+\+SIZE}~3
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a960fd48278cc00ebcb4cc78c02c17f35}\label{_custom_cayene_l_p_p_8h_a960fd48278cc00ebcb4cc78c02c17f35} 
+\#define {\bfseries LPP\+\_\+\+TEMPERATURE\+\_\+\+SIZE}~4
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_afcea3f998c7b15d4899b4692fb5903da}\label{_custom_cayene_l_p_p_8h_afcea3f998c7b15d4899b4692fb5903da} 
+\#define {\bfseries LPP\+\_\+\+RELATIVE\+\_\+\+HUMIDITY\+\_\+\+SIZE}~3
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_acea3cbf4456975f239c3280d9a513475}\label{_custom_cayene_l_p_p_8h_acea3cbf4456975f239c3280d9a513475} 
+\#define {\bfseries LPP\+\_\+\+ACCELEROMETER\+\_\+\+SIZE}~8
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_ab16d756a6cc06fcb2de139b0e7624cbe}\label{_custom_cayene_l_p_p_8h_ab16d756a6cc06fcb2de139b0e7624cbe} 
+\#define {\bfseries LPP\+\_\+\+BAROMETRIC\+\_\+\+PRESSURE\+\_\+\+SIZE}~4
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a1aa7772eb3562c202d6f5a3da89efb34}\label{_custom_cayene_l_p_p_8h_a1aa7772eb3562c202d6f5a3da89efb34} 
+\#define {\bfseries LPP\+\_\+\+GYROMETER\+\_\+\+SIZE}~8
+\item 
+\Hypertarget{_custom_cayene_l_p_p_8h_a21c6497023fdfcc3a0bddc70d0d88e51}\label{_custom_cayene_l_p_p_8h_a21c6497023fdfcc3a0bddc70d0d88e51} 
+\#define {\bfseries LPP\+\_\+\+GPS\+\_\+\+SIZE}~11
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Custom Library for creating Cayenne Low Power Payload (LPP) packets. 
+
+\begin{DoxyNote}{Note}
+This library requires a working knowledge of the Cayenne Low Power Protocol (LPP) specification. 
+\end{DoxyNote}
+\begin{DoxyCopyright}{Copyright}
+(c) 2024, Leon Nguyen and Len Verploegen
+\end{DoxyCopyright}
+The MIT License (MIT)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "{}\+Software"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "{}\+AS IS"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+\begin{DoxyAuthor}{Author}
+Leon Nguyen and Len Verpleogen 
+\end{DoxyAuthor}

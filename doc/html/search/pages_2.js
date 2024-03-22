@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['the_20mainpage_0',['This is the mainpage',['../index.html',1,'']]],
-  ['this_20is_20the_20mainpage_1',['This is the mainpage',['../index.html',1,'']]]
+  ['encoder_20decoder_20assignment_0',['IoT-Payload Encoder-Decoder Assignment',['../index.html',1,'']]]
 ];

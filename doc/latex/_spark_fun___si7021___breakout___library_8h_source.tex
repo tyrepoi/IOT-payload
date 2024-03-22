@@ -1,0 +1,98 @@
+\doxysection{Spark\+Fun\+\_\+\+Si7021\+\_\+\+Breakout\+\_\+\+Library.\+h}
+\hypertarget{_spark_fun___si7021___breakout___library_8h_source}{}\label{_spark_fun___si7021___breakout___library_8h_source}\index{LoRa\_TX\_RX\_Cayenne\_HAN/SparkFun\_Si7021\_Breakout\_Library.h@{LoRa\_TX\_RX\_Cayenne\_HAN/SparkFun\_Si7021\_Breakout\_Library.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ SparkFun\ Si7021\ Temperature\ and\ Humidity\ Breakout\ }}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ By:\ Joel\ Bartlett}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ SparkFun\ Electronics}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ Date:\ December\ 10,\ 2015}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ This\ is\ an\ Arduino\ library\ for\ the\ Si7021\ Temperature\ and\ Humidity\ Sensor\ Breakout}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ }}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ This\ library\ is\ based\ on\ the\ following\ libraries:}}
+\DoxyCodeLine{00010\ \textcolor{comment}{}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ HTU21D\ Temperature\ /\ Humidity\ Sensor\ Library}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ By:\ Nathan\ Seidle}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ https://github.com/sparkfun/HTU21D\_Breakout/tree/master/Libraries}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ Arduino\ Si7010\ relative\ humidity\ +\ temperature\ sensor}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ By:\ Jakub\ Kaminski,\ 2014}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ https://github.com/teoqba/ADDRESS}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ This\ Library\ is\ free\ software:\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ the\ Free\ Software\ Foundation,\ either\ version\ 3\ of\ the\ License,\ or}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ This\ Library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00028\ \textcolor{comment}{}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ For\ a\ copy\ of\ the\ GNU\ General\ Public\ License,\ see}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ <http://www.gnu.org/licenses/>.}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ SparkFun\_Si7021\_Breakout\_Library\_h}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SparkFun\_Si7021\_Breakout\_Library\_h}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{/****************Si7021\ \&\ HTU21D\ Definitions***************************/}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ ADDRESS\ \ \ \ \ \ 0x40}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ TEMP\_MEASURE\_HOLD\ \ 0xE3}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ HUMD\_MEASURE\_HOLD\ \ 0xE5}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ TEMP\_MEASURE\_NOHOLD\ \ 0xF3}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ HUMD\_MEASURE\_NOHOLD\ \ 0xF5}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ TEMP\_PREV\ \ \ 0xE0}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ WRITE\_USER\_REG\ \ 0xE6}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ READ\_USER\_REG\ \ 0xE7}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ SOFT\_RESET\ \ 0xFE}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ HTRE\ \ \ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ \_BV(bit)\ (1\ <<\ (bit))}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ CRC\_POLY\ 0x988000\ }\textcolor{comment}{//\ Shifted\ Polynomial\ for\ CRC\ check}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ Error\ codes}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ I2C\_TIMEOUT\ \ \ \ \ 998}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ BAD\_CRC\ \ \ \ \ 999}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{/****************Si7021\ \&\ HTU21D\ Class**************************************/}}
+\DoxyCodeLine{00063\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_weather}{Weather}}}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ Constructor}}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{class_weather}{Weather}}();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ begin();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ Si7021\ \&\ HTU21D\ Public\ Functions}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{float}\ getRH();}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{float}\ readTemp();}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{float}\ getTemp();}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{float}\ readTempF();}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordtype}{float}\ getTempF();}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \ heaterOn();}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{void}\ \ heaterOff();}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{void}\ \ changeResolution(uint8\_t\ i);}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{void}\ \ reset();}
+\DoxyCodeLine{00081\ \ \ \ \ uint8\_t\ \ checkID();}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{//Si7021\ \&\ HTU21D\ Private\ Functions}}
+\DoxyCodeLine{00087\ \ \ \ \ uint16\_t\ makeMeasurment(uint8\_t\ command);}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ writeReg(uint8\_t\ value);}
+\DoxyCodeLine{00089\ \ \ \ \ uint8\_t\ \ readReg();}
+\DoxyCodeLine{00090\ \};}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

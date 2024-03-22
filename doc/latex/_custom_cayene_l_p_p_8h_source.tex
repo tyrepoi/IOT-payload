@@ -1,0 +1,82 @@
+\doxysection{Custom\+Cayene\+LPP.\+h}
+\hypertarget{_custom_cayene_l_p_p_8h_source}{}\label{_custom_cayene_l_p_p_8h_source}\index{LoRa\_TX\_RX\_Cayenne\_HAN/CustomCayeneLPP.h@{LoRa\_TX\_RX\_Cayenne\_HAN/CustomCayeneLPP.h}}
+\mbox{\hyperlink{_custom_cayene_l_p_p_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifndef\ \_CUSTOMCAYENNELPP\_H\_}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ \_CUSTOMCAYENNELPP\_H\_}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <Arduino.h>}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ LPP\_DIGITAL\_INPUT\ 0\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ LPP\_DIGITAL\_OUTPUT\ 1\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ LPP\_ANALOG\_INPUT\ 2\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ LPP\_ANALOG\_OUTPUT\ 3\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ LPP\_ADDBIT\ 4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ LPP\_ADDBYTE\ 5\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ LPP\_ADDWORD\ 6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ LPP\_ADDDOUBLEWORD\ 7\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ LPP\_ADDFLOAT\ 8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ LPP\_CUSTOMBYTE\ 9\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ LPP\_LUMINOSITY\ 101\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ LPP\_PRESENCE\ 102\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ LPP\_TEMPERATURE\ 103\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ LPP\_RELATIVE\_HUMIDITY\ 104\ \ \ \ }}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ LPP\_ACCELEROMETER\ 113\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ LPP\_BAROMETRIC\_PRESSURE\ 115\ \ }}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ LPP\_GYROMETER\ 134\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ LPP\_GPS\ 136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ The\ total\ number\ of\ bytes\ required\ for\ the\ Data\ ID,\ Data\ Type,\ and\ Data\ Size}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ LPP\_DIGITAL\_INPUT\_SIZE\ 3}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ LPP\_DIGITAL\_OUTPUT\_SIZE\ 3}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ LPP\_ANALOG\_INPUT\_SIZE\ 4}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ LPP\_ANALOG\_OUTPUT\_SIZE\ 3}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ LPP\_LUMINOSITY\_SIZE\ 4}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ LPP\_PRESENCE\_SIZE\ 3}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ LPP\_TEMPERATURE\_SIZE\ 4}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ LPP\_RELATIVE\_HUMIDITY\_SIZE\ 3}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ LPP\_ACCELEROMETER\_SIZE\ 8}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ LPP\_BAROMETRIC\_PRESSURE\_SIZE\ 4}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ LPP\_GYROMETER\_SIZE\ 8}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ LPP\_GPS\_SIZE\ 11}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00068\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_cayenne_l_p_p}{CayenneLPP}}\ \{}
+\DoxyCodeLine{00069\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{class_cayenne_l_p_p_a36adb2a5b4762d16d2f185e14ff69622}{CayenneLPP}}(uint8\_t\ size);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{class_cayenne_l_p_p_a87ca867c5f9516622e02e0199d357fac}{\string~CayenneLPP}}();}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_cayenne_l_p_p_aa34ffe8eae08b7e69b288fa213aac594}{reset}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00090\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a82b65449c4987cb435ec4f1f94cd16d5}{getSize}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00096\ \ \ \ \ uint8\_t\ *\mbox{\hyperlink{class_cayenne_l_p_p_a76e9b677f69f82e58875af03c3da68c4}{getBuffer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00103\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a18472d3f416a889d3c64dcc3be416e14}{copy}}(uint8\_t\ *buffer);}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00111\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a9d8a1b4bab9e4a9eb894c3c35103ea10}{addBit}}(uint8\_t\ channel,\ uint8\_t\ type,\ uint8\_t\ value);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00123\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_ae9d786c9d5332143e8519cb5f7017e16}{addCustomByte}}(uint8\_t\ channel,\ uint8\_t\ type,\ \textcolor{keywordtype}{float}\ value,\ uint16\_t\ resolution,\ uint8\_t\ num\_bytes);}
+\DoxyCodeLine{00132\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_ada4e5c5aedbba4090f6037c8607bce13}{addByte}}(uint8\_t\ channel,\ uint8\_t\ type,\ \textcolor{keywordtype}{float}\ value,\ uint8\_t\ resolution);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00142\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a00656772e262c87786504102fd9dacf3}{addWord}}(uint8\_t\ channel,\ uint8\_t\ type,\ \textcolor{keywordtype}{float}\ value,\ uint8\_t\ resolution);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00152\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a445b42e7d9e2da2766d5978889089aa1}{addDoubleWord}}(uint8\_t\ channel,\ uint8\_t\ type,\ uint32\_t\ value,\ uint8\_t\ resolution);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00162\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a88992d4725092f5e169e9ab12b77084e}{addFloat}}(uint8\_t\ channel,\ uint8\_t\ type,\ \textcolor{keywordtype}{float}\ value,\ uint8\_t\ resolution);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00172\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{class_cayenne_l_p_p_a1ed48493aa67573db8ed3d6f25fa171c}{add3Float}}(uint8\_t\ channel,\ uint8\_t\ type,\ \textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y,\ \textcolor{keywordtype}{float}\ z,\ uint8\_t\ resolution);}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00180\ \ \ \ \ uint8\_t\ *buffer;}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00186\ \ \ \ \ uint8\_t\ maxsize;}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00192\ \ \ \ \ uint8\_t\ cursor;}
+\DoxyCodeLine{00193\ \};}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

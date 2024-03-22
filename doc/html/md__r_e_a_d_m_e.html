@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>IoT-Doxygen documentation: IoT-Doxygen documentation</title>
+<title>IoT-Payload encoder-decoder assignment: Payload encoder -decoder library assignment</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">IoT-Doxygen documentation<span id="projectnumber">&#160;1.2</span>
+   <div id="projectname">IoT-Payload encoder-decoder assignment<span id="projectnumber">&#160;1.2</span>
    </div>
   </td>
  </tr>
@@ -48,7 +48,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -70,22 +69,19 @@ $(function() {
 </div>
 </div>
 
+</div><!-- top -->
 <div><div class="header">
-  <div class="headertitle"><div class="title">IoT-Doxygen documentation </div></div>
+  <div class="headertitle"><div class="title">Payload encoder -decoder library assignment</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h1><a class="anchor" id="autotoc_md0"></a>
-Payload encoder -decoder library</h1>
-<p>In semester 6 of the Embedded Systems Engineering program, students focus on the Internet of Things (IoT). In this context, LoRaWAN technology is used to transmit data from the KISS LoRa device. The task is to develop a solution for the improvement of the encoding and decoding of the payloads used in this system.</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
-The assignment</h2>
-<p>A popular library for constructing a payload with LoRaWAN is the <a class="el" href="class_cayenne_l_p_p.html" title="Cayenne Low Power Protocol (LPP) packet builder class. This class provides methods to build Cayenne L...">CayenneLPP</a> library, which is part of The Things Network (TTN) library. The <a class="el" href="class_cayenne_l_p_p.html" title="Cayenne Low Power Protocol (LPP) packet builder class. This class provides methods to build Cayenne L...">CayenneLPP</a> library is a flexible solution to use in rapid prototyping, but is not optimized for payload size. To promote flexibility, the payload uses an implicit payload composition scheme that results in additional overhead in the payload. There is also significant overhead in the code The assignment involves developing an innovative solution for improving payload encoding and decoding processes.</p>
-<h2><a class="anchor" id="autotoc_md2"></a>
-Custom Library</h2>
-<p>See the CustomCayenneLPP-library for our refactored <a class="el" href="class_cayenne_l_p_p.html" title="Cayenne Low Power Protocol (LPP) packet builder class. This class provides methods to build Cayenne L...">CayenneLPP</a> library. In this new library, we added functions to add a bit, byte, 16-bit words, 32-bit words, and floats to a payload. We refactored the <a class="el" href="class_cayenne_l_p_p.html" title="Cayenne Low Power Protocol (LPP) packet builder class. This class provides methods to build Cayenne L...">CayenneLPP</a> library to reduce the code footprint by removing all unnecessary features and preserving specified compatibility.</p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Kiss LoRa Device</h2>
+<div class="textblock"><p><a class="anchor" id="autotoc_md0"></a>In semester 6 of the Embedded Systems Engineering program, students focus on the Internet of Things (IoT). In this context, LoRaWAN technology is used to transmit data from the KISS LoRa device. The task is to develop a solution for the improvement of the encoding and decoding of the payloads used in this system.</p>
+<h1><a class="anchor" id="autotoc_md1"></a>
+The assignment</h1>
+<p>A popular library for constructing a payload with LoRaWAN is the CayenneLPP library, which is part of The Things Network (TTN) library. The CayenneLPP library is a flexible solution to use in rapid prototyping, but is not optimized for payload size. To promote flexibility, the payload uses an implicit payload composition scheme that results in additional overhead in the payload. There is also significant overhead in the code The assignment involves developing an innovative solution for improving payload encoding and decoding processes.</p>
+<h1><a class="anchor" id="autotoc_md2"></a>
+Kiss LoRa Device</h1>
 <p>The KISS LoRa was a gadget that was issued to visitors to the Dutch electonics fair <a href="https://fhi.nl/eabeurs/kiss-lora-ea-2017-gadget/" rel="EandA">Electroncs &amp; Applications</a> and produced in a serie of aproximately 2000 devices. The purpose was to attract visitors to <a href="https://www.thethingsnetwork.org/" rel="TTN">The Things Network</a> and to propmote companies that participated in producing the KISS LoRa.</p>
+<p><img src="images/KISSLoRa-1024x400.png" alt="KISS LoRa" class="inline"/> Image source: <a href="https://diystuff.nl/lorawan/kisslora/">https://diystuff.nl/lorawan/kisslora/</a></p>
 <p>The board contains:</p>
 <ul>
 <li>Microchip RN2483 Low-Power Long Range LoRa™ Technology Transceiver Module.</li>
@@ -94,15 +90,15 @@ Kiss LoRa Device</h2>
 <li>APDS-9007 Ambient Light Photo Sensor with Logarithmic Current Output.</li>
 <li>SI7021-A20 I2C Humidity and Temperature sensor.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
-License</h2>
+<h1><a class="anchor" id="autotoc_md3"></a>
+License</h1>
 <p>All copyrights belong to their respective owners and are mentioned there were known.</p>
+<p>This repository is part of the IoT classes delivered at HAN Engineering ELT.</p>
 <p>This repository is free: You may redistribute it and/or modify it under the terms of a Creative Commons Attribution-NonCommercial 4.0 International License (<a href="http://creativecommons.org/licenses/by-nc/4.0/">http://creativecommons.org/licenses/by-nc/4.0/</a>) by Leon Nguyen and Len Verploegen</p>
 <p><a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license"><img src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" alt="Creative Commons License" style="border-width:0" class="inline"/></a><br  />
 This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license">Creative Commons Attribution-NonCommercial 4.0 International License</a>. </p>
-</div></div><!-- PageDoc -->
-<a href="doxygen_crawl.html"/>
-</div><!-- contents -->
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.10.0
