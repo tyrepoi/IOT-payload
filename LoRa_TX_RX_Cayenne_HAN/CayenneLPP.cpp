@@ -34,14 +34,13 @@ uint8_t CayenneLPP::addBit(uint8_t channel, uint8_t value) {
 }
 
 
-uint8_t CayenneLPP::addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes){
+uint8_t CayenneLPP::addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes, bool sign){
     buffer[cursor++] = channel;
     buffer[cursor++] = type;
- 
-    uint16_t combined_res_num = (resolution << 3) | num_bytes;
+
+    uint16_t combined_res_num = ((resolution << 3) | num_bytes) | (sign << 13);
     buffer[cursor++] = (combined_res_num >> 8) & 0xFF; // Store the high byte
     buffer[cursor++] = combined_res_num & 0xFF; // Store the low byte
-
 
     uint32_t valueScaled = value * resolution;
 

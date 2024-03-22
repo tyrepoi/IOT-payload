@@ -109,7 +109,18 @@ public:
 	 */
 	uint8_t addBit(uint8_t channel, uint8_t value);
 
-  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes);
+  	/**
+	 * @brief Add value to how much bytes you want, you can also change the sensor type, resolution and sign
+	 * @param channel Channel number.
+   * @param type the type of sensor or if added new paramaters use custom 
+   * @param resolution how many decimals it has (1000 max)
+   * @param num_bytes how many bytes will the message contain (7 bytes max)
+   * @param sign the indicator if the value can change to negative (true false)
+   * @param implemented a function that can add custom parameters to the encoder
+	 * @param value value of the desired data transfer
+	 */ 
+
+  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes, bool sign);
 
 	/**
 	 * @brief Add a byte value to the LPP packet.
