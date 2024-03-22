@@ -49,14 +49,13 @@ Go to **Tools->Processor** and select **ATmega32U4 (3.3V, 8MHz)**.
 7. In the Arduino IDE, choose **Sketch->Upload**.
 8. As soon as you see `PORTS {} / {} => {}` printed in the output window turn KISSLoRa on.
 9. When the upload process continue past showing `PORTS {} / {} => {}`, you can release the push button.
-
  */
 
 // Libraries and includes
 //#include <TheThingsNetwork.h>   // include for TheThingsNetwork library
 //#include <CayenneLPP.h>         // include for CayenneLPP library
 #include "TheThingsNetwork.h" 
-#include "CayenneLPP.h"
+#include "CustomCayeneLPP.h" // include for CayenneLPP_NewLibrary
 #include "SparkFun_Si7021_Breakout_Library.h" // include for temperature and humidity sensor
 #include <Wire.h>
 #include "KISSLoRa_sleep.h"     // Include to sleep MCU
@@ -71,12 +70,13 @@ Go to **Tools->Processor** and select **ATmega32U4 (3.3V, 8MHz)**.
 // LoRaWAN TTN
 #define freqPlan TTN_FP_EU868     ///< The KISS device should only be used in Europe
 
-// Set your AppEUI and AppKey
+
 // HAN KISS-xx: devEui is device specific
 //const char *devEui = "70B3D57ED0065918";
 //const char *appEui = "70B3D57ED0013DED"; 
 //const char *appKey = "C5DAAB272E770448DD939CAB53C3BB9B"; //3C80CDEA19B9BFD182C1A244F11824DF
 
+// Set your AppEUI and AppKey
 const char *appEui = "0004A30B001EE766"; 
 const char *appKey = "B6B97071E7CEF402A53C40AA3392257D"; //3C80CDEA19B9BFD182C1A244F11824DF
 
@@ -95,22 +95,18 @@ TheThingsNetwork ttn(loraSerial, debugSerial, freqPlan);  // TTN object for LoRa
 #define LPP_CH_BOARDVCCVOLTAGE    5    ///< CayenneLPP CHannel for Processor voltage
 #define LPP_CH_PRESENCE           6    ///< CayenneLPP CHannel for Alarm
 
-#define LPP_CH_ADDBYTE            7
-#define LLP_CH_ADD2BYTES          9
-#define LPP_CH_ADD4BYTES          10
-
 #define LPP_CH_SET_INTERVAL       20   ///< CayenneLPP CHannel for setting downlink interval
 #define LPP_CH_SW_RELEASE         90   ///< 
 
-#define ALARM             0x01  ///< Alarm state
-#define SAFE              0x00  ///< No-alarm state
+#define ALARM                     0x01 ///< Alarm state
+#define SAFE                      0x00 ///< No-alarm state
 
-CayenneLPP lpp(LPP_PAYLOAD_MAX_SIZE); ///< Cayenne object for composing sensor message
+CayenneLPP lpp(LPP_PAYLOAD_MAX_SIZE);  ///< Cayenne object for composing sensor message
 
 // Sensors
-Weather sensor;                  ///< temperature and humidity sensor
+Weather sensor;                        ///< temperature and humidity sensor
 
-#define LIGHT_SENSOR_PIN  10     ///< Define for Analog input pin
+#define LIGHT_SENSOR_PIN  10           ///< Define for Analog input pin
 
 // defines for LEDs
 #define RGBLED_RED        12
@@ -242,16 +238,9 @@ void loop(){
   // Temperature is measured every time RH is requested.
   // It is faster, therefore, to read it from previous RH
   // measurement with getTemp() instead with readTemp()
-  
   debugSerial.print(F("Temperature: "));
   debugSerial.print(temperature);
   debugSerial.println(F(" Degrees."));
-  ///float floatn = 18.7;
-  //uint8_t number8 = static_cast<uint8_t>(floatn);
-  //uint8_t bytetemperature = static_cast<uint8_t>(temperature);
-  //Serial.println("test");
-  //Serial.println(number8);
-  //Serial.println(bytetemperature);
 
   // Measure luminosity
   float luminosity = get_lux_value();
@@ -286,7 +275,6 @@ void loop(){
   // Compose Cayenne message
   lpp.reset();    // reset cayenne object
   
-
   // add sensor values to cayenne data package
   //lpp.addByte(LPP_CH_ADDBYTE, one);
 
@@ -296,18 +284,16 @@ void loop(){
   uint8_t bufesize = 3;
   uint8_t inputsa = 1;
 
-  
-  lpp.add2Bytes(LPP_CH_TEMPERATURE, LPP_TEMPERATURE, temperature, 10);
+  lpp.addWord(LPP_CH_TEMPERATURE, LPP_TEMPERATURE, temperature, 10);
   lpp.addByte(LPP_CH_HUMIDITY, LPP_RELATIVE_HUMIDITY, humidity, 2);
-  lpp.add2Bytes(LPP_CH_LUMINOSITY, LPP_LUMINOSITY, luminosity, 1);
+  lpp.addWord(LPP_CH_LUMINOSITY, LPP_LUMINOSITY, luminosity, 1);
   lpp.addByte(LPP_CH_ROTARYSWITCH, LPP_DIGITAL_INPUT, rotaryPosition, 1);
   //lpp.addAccelerometer(LPP_CH_ACCELEROMETER, x, y, z);
-  lpp.add3Float(LPP_CH_ACCELEROMETER, LPP_ACCELEROMETER, x, y, z, 10);
-  lpp.add2Bytes(LPP_CH_BOARDVCCVOLTAGE, LPP_ANALOG_INPUT, vdd, 100);
+  lpp.add3Float(LPP_CH_ACCELEROMETER, LPP_ACCELEROMETER, x, y, z, 1000);
+  lpp.addWord(LPP_CH_BOARDVCCVOLTAGE, LPP_ANALOG_INPUT, vdd, 100);
   lpp.addByte(LPP_CH_PRESENCE, LPP_PRESENCE, SAFE, 1);
-  lpp.add2Bytes(LPP_CH_SET_INTERVAL, LPP_ANALOG_OUTPUT, (float)currentInterval/1000, 100);
+  lpp.addWord(LPP_CH_SET_INTERVAL, LPP_ANALOG_OUTPUT, (float)currentInterval/1000, 100);
 
-  
   Serial.print("lpp.getSize()");
   Serial.println(lpp.getSize());
   
@@ -496,8 +482,7 @@ static void sleep(uint32_t delay_time_ms){
       ttn.wake();
         
       lpp.reset();
-      lpp.addPresence(LPP_CH_PRESENCE, ALARM);
-      //lpp.addDigitalInput(LPP_CH_SW_RELEASE, RELEASE);
+      lpp.addByte(LPP_CH_PRESENCE, LPP_PRESENCE, ALARM, 1);
       lpp.addByte(LPP_CH_SW_RELEASE, LPP_DIGITAL_INPUT, RELEASE, 1);
   
       // Send it off
