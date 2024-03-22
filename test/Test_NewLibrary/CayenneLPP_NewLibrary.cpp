@@ -33,8 +33,30 @@ uint8_t CayenneLPP::addBit(uint8_t channel, uint8_t type, uint8_t value) {
     return cursor;
 }
 
-uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution) {
-    uint8_t valueScaled = value *resolution;
+
+uint8_t CayenneLPP::addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes, bool sign){
+    buffer[cursor++] = channel;
+    buffer[cursor++] = type;
+
+    uint16_t combined_res_num = ((resolution << 3) | num_bytes) | (sign << 13);
+    buffer[cursor++] = (combined_res_num >> 8) & 0xFF; // Store the high byte
+    buffer[cursor++] = combined_res_num & 0xFF; // Store the low byte
+
+    uint32_t valueScaled = value * resolution;
+
+    for (int byteIndex = num_bytes - 1; byteIndex >= 0; --byteIndex) {
+    // Shift the scaled value to the right to isolate the current byte
+      uint8_t byteValue = (valueScaled >> (byteIndex * 8)) & 0xFF;
+    // Store the extracted byte in the buffer
+    buffer[cursor++] = byteValue;
+    }
+
+    return cursor;
+}
+
+uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t type, float value, uint16_t resolution) {
+    uint16_t valueScaled = value * resolution;
+
     buffer[cursor++] = channel;
     buffer[cursor++] = type;
     buffer[cursor++] = valueScaled;
@@ -44,27 +66,30 @@ uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t type, float value, uint8_t 
 
 uint8_t CayenneLPP::addWord(uint8_t channel, uint8_t type, float value, uint8_t resolution)  {
     uint16_t valueScaled = value *resolution;
+
     buffer[cursor++] = channel;
     buffer[cursor++] = type;
-    buffer[cursor++] = valueScaled >> 8;  // Store most significant byte
+    buffer[cursor++] = (valueScaled >> 8) & 0xFF;  // Store most significant byte
     buffer[cursor++] = valueScaled & 0xFF;  // Store least significant byte
 
     return cursor;
 }
 
-uint8_t CayenneLPP::addDoubleWord(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution){
+uint8_t CayenneLPP::addDoubleWord(uint8_t channel, uint8_t type, float value, uint16_t resolution){
+    uint32_t valueScaled = value * resolution;
+
     buffer[cursor++] = channel;
     buffer[cursor++] = type;
-    buffer[cursor++] = (value >> 24) & 0xFF;  // Store the most significant byte
-    buffer[cursor++] = (value >> 16) & 0xFF;  // Store the second most significant byte
-    buffer[cursor++] = (value >> 8) & 0xFF;   // Store the third most significant byte
-    buffer[cursor++] = value & 0xFF;          // Store the least significant byte
+    buffer[cursor++] = (valueScaled >> 24) & 0xFF;  // Store the most significant byte
+    buffer[cursor++] = (valueScaled >> 16) & 0xFF;  // Store the second most significant byte
+    buffer[cursor++] = (valueScaled >> 8) & 0xFF;   // Store the third most significant byte
+    buffer[cursor++] = valueScaled & 0xFF;          // Store the least significant byte
 
     return cursor;
 }
 
-uint8_t CayenneLPP::addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution){
-    int32_t scaledValue = value * 10000000; // scale by 10^7 for 0.0000001 resolution
+uint8_t CayenneLPP::addFloat(uint8_t channel, float value, uint16_t resolution){
+    int32_t scaledValue = value * resolution; 
 
     buffer[cursor++] = channel;
     buffer[cursor++] = LPP_ADDFLOAT; // Assuming LPP_ADDFLOAT is a defined constant for the data type
@@ -77,7 +102,7 @@ uint8_t CayenneLPP::addFloat(uint8_t channel, uint8_t type, float value, uint8_t
     return cursor;
 }
  
-uint8_t CayenneLPP::add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint8_t resolution){
+uint8_t CayenneLPP::add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint16_t resolution){
   if (type == LPP_GPS_SIZE){
     int32_t lat = x * 100 * resolution; //resolution has to be 100
     int32_t lon = y * 100 * resolution;
