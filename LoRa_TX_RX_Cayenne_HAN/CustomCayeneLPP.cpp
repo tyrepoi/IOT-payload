@@ -50,6 +50,7 @@ uint8_t CayenneLPP::addCustomByte(uint8_t channel, uint8_t type, float value, ui
     // Store the extracted byte in the buffer
     buffer[cursor++] = byteValue;
   }
+}
 
   uint8_t CayenneLPP::addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution) {
     if ((cursor + 3) > maxsize) {
