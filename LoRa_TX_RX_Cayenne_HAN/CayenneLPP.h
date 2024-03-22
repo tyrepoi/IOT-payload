@@ -37,6 +37,7 @@
 #define LPP_ADD2BYTES 6             /// \ Identifier for additional 2-byte data type (2 bytes)
 #define LPP_ADD4BYTES 7             /// \ Identifier for additional 4-byte data type (4 bytes)
 #define LPP_ADDFLOAT 8              /// \ Identifier for additional floating-point data type
+#define LPP_CUSTOMBYTE 9
 #define LPP_LUMINOSITY 101          /// \ Identifier for luminosity data type (2 bytes, 1 lux unsigned)
 #define LPP_PRESENCE 102            /// \ Identifier for presence data type (1 byte, 1)
 #define LPP_TEMPERATURE 103         /// \ Identifier for temperature data type (2 bytes, 0.1°C signed)
@@ -108,13 +109,15 @@ public:
 	 */
 	uint8_t addBit(uint8_t channel, uint8_t value);
 
+  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes);
+
 	/**
 	 * @brief Add a byte value to the LPP packet.
 	 * @param channel Channel number.
    * @param implemented function addByte for the functions (addDigitalInput and addDigitalOutput).
 	 * @param value Byte value.
 	 */ 
-  uint8_t addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+  uint8_t addByte(uint8_t channel, uint8_t type, float value, uint16_t resolution);
 	
 	/**
 	 * @brief Add a two-byte value to the LPP packet.
@@ -122,28 +125,28 @@ public:
    * @param implemented function add2Bytes for the functions (temperature, addLuminosity, addAnalogInput, addAnalogOutput)
 	 * @param value Two-byte value.
 	 */
-  uint8_t add2Bytes(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+  uint8_t add2Bytes(uint8_t channel, uint8_t type, float value, uint16_t resolution);
 
 	/**
 	 * @brief Add a four-byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Four-byte value.
 	 */  
-	uint8_t add4Bytes(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution); 
+	uint8_t add4Bytes(uint8_t channel, uint8_t type, float value, uint16_t resolution); 
 
 	/**
 	 * @brief Add a floating-point value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Floating-point value.
 	 */
-	uint8_t addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution); 
+	uint8_t addFloat(uint8_t channel, float value, uint16_t resolution); 
 
   /**
    * @brief Add a 3float value to the LPP packet.
    * @param channel Channel number.
    * @param value Floating-point value.
    */
-  uint8_t add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint8_t resolution);
+  uint8_t add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint16_t resolution);
 
 	/**
 	 * @brief Add a digital input value to the LPP packet.
