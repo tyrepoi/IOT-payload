@@ -28,119 +28,130 @@
 
 #include <Arduino.h>
 
-#define LPP_DIGITAL_INPUT 0         /// \ Identifier for digital input data type (1 Byte)
-#define LPP_DIGITAL_OUTPUT 1        /// \ Identifier for digital output data type (1 Byte)
-#define LPP_ANALOG_INPUT 2          /// \ Identifier for analog input data type (2 bytes and is scaled by a factor of 0.01 (signed)
-#define LPP_ANALOG_OUTPUT 3         /// \ Identifier for analog output data type (2 bytes and is scaled by a factor of 0.01 (signed))
-#define LPP_ADDBIT 4                /// \ Identifier for additional bit data type (1 Byte)
-#define LPP_ADDBYTE 5               /// \ Identifier for additional byte data type (1 Byte)
-#define LPP_ADDWORD 6             	/// \ Identifier for additional 2-byte data type (2 bytes)
-#define LPP_ADDDOUBLEWORD 7         /// \ Identifier for additional 4-byte data type (4 bytes)
-#define LPP_ADDFLOAT 8              /// \ Identifier for additional floating-point data type
-#define LPP_LUMINOSITY 101          /// \ Identifier for luminosity data type (2 bytes, 1 lux unsigned)
-#define LPP_PRESENCE 102            /// \ Identifier for presence data type (1 byte, 1)
-#define LPP_TEMPERATURE 103         /// \ Identifier for temperature data type (2 bytes, 0.1°C signed)
-#define LPP_RELATIVE_HUMIDITY 104   /// \ Identifier for relative humidity data type (1 byte, 0.5% unsigned)
-#define LPP_ACCELEROMETER 113       /// \ Identifier for accelerometer data type (2 bytes per axis, 0.001G)
-#define LPP_BAROMETRIC_PRESSURE 115 /// \ Identifier for barometric pressure data type (2 bytes 0.1 hPa Unsigned)
-#define LPP_GYROMETER 134           /// \ Identifier for gyrometer data type (2 bytes per axis, 0.01 °/s)
-#define LPP_GPS 136                 /// \ Identifier for GPS data type (3 byte lon/lat 0.0001 °, 3 bytes alt 0.01 meter)
+#define LPP_DIGITAL_INPUT 0          /// \ Identifier for digital input data type (1 Byte)
+#define LPP_DIGITAL_OUTPUT 1         /// \ Identifier for digital output data type (1 Byte)
+#define LPP_ANALOG_INPUT 2           /// \ Identifier for analog input data type (2 bytes and is scaled by a factor of 0.01 (signed)
+#define LPP_ANALOG_OUTPUT 3          /// \ Identifier for analog output data type (2 bytes and is scaled by a factor of 0.01 (signed))
+#define LPP_ADDBIT 4                 /// \ Identifier for additional bit data type (1 Byte)
+#define LPP_ADDBYTE 5                /// \ Identifier for additional byte data type (1 Byte)
+#define LPP_ADDWORD 6                /// \ Identifier for additional 2-byte data type (2 bytes)
+#define LPP_ADDDOUBLEWORD 7          /// \ Identifier for additional 4-byte data type (4 bytes)
+#define LPP_ADDFLOAT 8               /// \ Identifier for additional floating-point data type
+#define LPP_CUSTOMBYTE 9             /// \ Identifier for custom data type
+#define LPP_LUMINOSITY 101           /// \ Identifier for luminosity data type (2 bytes, 1 lux unsigned)
+#define LPP_PRESENCE 102             /// \ Identifier for presence data type (1 byte, 1)
+#define LPP_TEMPERATURE 103          /// \ Identifier for temperature data type (2 bytes, 0.1°C signed)
+#define LPP_RELATIVE_HUMIDITY 104    /// \ Identifier for relative humidity data type (1 byte, 0.5% unsigned)
+#define LPP_ACCELEROMETER 113        /// \ Identifier for accelerometer data type (2 bytes per axis, 0.001G)
+#define LPP_BAROMETRIC_PRESSURE 115  /// \ Identifier for barometric pressure data type (2 bytes 0.1 hPa Unsigned)
+#define LPP_GYROMETER 134            /// \ Identifier for gyrometer data type (2 bytes per axis, 0.01 °/s)
+#define LPP_GPS 136                  /// \ Identifier for GPS data type (3 byte lon/lat 0.0001 °, 3 bytes alt 0.01 meter)
 
 // The total number of bytes required for the Data ID, Data Type, and Data Size
-#define LPP_DIGITAL_INPUT_SIZE 3       
-#define LPP_DIGITAL_OUTPUT_SIZE 3     
-#define LPP_ANALOG_INPUT_SIZE 4        
-#define LPP_ANALOG_OUTPUT_SIZE 3     
-#define LPP_LUMINOSITY_SIZE 4         
-#define LPP_PRESENCE_SIZE 3         
-#define LPP_TEMPERATURE_SIZE 4        
-#define LPP_RELATIVE_HUMIDITY_SIZE 3   
-#define LPP_ACCELEROMETER_SIZE 8       
+#define LPP_DIGITAL_INPUT_SIZE 3
+#define LPP_DIGITAL_OUTPUT_SIZE 3
+#define LPP_ANALOG_INPUT_SIZE 4
+#define LPP_ANALOG_OUTPUT_SIZE 3
+#define LPP_LUMINOSITY_SIZE 4
+#define LPP_PRESENCE_SIZE 3
+#define LPP_TEMPERATURE_SIZE 4
+#define LPP_RELATIVE_HUMIDITY_SIZE 3
+#define LPP_ACCELEROMETER_SIZE 8
 #define LPP_BAROMETRIC_PRESSURE_SIZE 4
-#define LPP_GYROMETER_SIZE 8           
-#define LPP_GPS_SIZE 11              
+#define LPP_GYROMETER_SIZE 8
+#define LPP_GPS_SIZE 11
 
 /**
  * @brief Cayenne Low Power Protocol (LPP) packet builder class.
  * This class provides methods to build Cayenne LPP packets for sending sensor data over LoRaWAN
  */
-class CayenneLPP
-{
+class CayenneLPP {
 public:
-	/**
+  /**
 	 * @brief Constructor for CayenneLPP class.
 	 * @param size Maximum size of the LPP packet.
 	 */
-	CayenneLPP(uint8_t size);
+  CayenneLPP(uint8_t size);
 
-	/**
+  /**
 	 * @brief Destructor for CayenneLPP class.
 	 */
-	~CayenneLPP();
+  ~CayenneLPP();
 
-	/**
+  /**
 	 * @brief Reset the LPP packet buffer.
 	 */
-	void reset(void);
+  void reset(void);
 
-	/**
+  /**
 	 * @brief Get the size of the LPP packet buffer.
 	 * @return Size of the LPP packet buffer.
 	 */
-	uint8_t getSize(void);
+  uint8_t getSize(void);
 
-	/**
+  /**
 	 * @brief Get a pointer to the LPP packet buffer.
 	 * @return Pointer to the LPP packet buffer.
 	 */
-	uint8_t *getBuffer(void);
+  uint8_t *getBuffer(void);
 
-	/**
+  /**
 	 * @brief Copy the LPP packet buffer to an external buffer.
 	 * @param buffer External buffer to copy the LPP packet buffer into.
 	 * @return Number of bytes copied.
 	 */
-	uint8_t copy(uint8_t *buffer);
+  uint8_t copy(uint8_t *buffer);
 
-	/**
+  /**
    * @brief Add a single bit value to the LPP packet.
    * @param channel Channel number.
    * @param type Data type identifier determining how the value will be interpreted.
    * @param value Bit value to be added to the LPP packet.
    */
-	uint8_t addBit(uint8_t channel, uint8_t type, uint8_t value);
+  uint8_t addBit(uint8_t channel, uint8_t type, uint8_t value);
 
-	/**
+  /**
+	 * @brief Add value to how much bytes you want, you can also change the sensor type, resolution and sign
+	 * @param channel Channel number.
+   * @param type the type of sensor or if added new paramaters use custom 
+   * @param resolution how many decimals it has (1000 max)
+   * @param num_bytes how many bytes will the message contain (7 bytes max)
+   * @param implemented a function that can add custom parameters to the encoder
+	 * @param value value of the desired data transfer
+	 */
+
+  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes);
+  /**
 	 * @brief Add a byte value to the LPP packet.
 	 * @param channel Channel number.
    * @param type Type the function is designed to handle different types of data, such as digital inputs, digital outputs, and presence indicators
    * @param value Bit value to be added to the LPP packet.
    * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
    * @return Status code indicating the success of the operation.
-	 */ 
+	 */
   uint8_t addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution);
-	
-	/**
+
+  /**
 	 * @brief Add a two-byte value to the LPP packet.
 	 * @param channel Channel number.
    * @param type Type the function is designed to handle different types of data, such as temperature, luminosity, analogInput, analogOutput, relativeHumidity, barometricPressure
 	 * @param value Two-byte value to be added to the LPP packet.
    * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
    * @return Status code indicating the success of the operation.
-   */ 
+   */
   uint8_t addWord(uint8_t channel, uint8_t type, float value, uint8_t resolution);
 
-	/**
+  /**
 	 * @brief Add a four-byte value to the LPP packet.
 	 * @param channel Channel number.
    * @param type Type
 	 * @param value Four-byte value to be added to the LPP packet.
 	 * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
    * @return Status code indicating the success of the operation.
-   */   
-  uint8_t addDoubleWord(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution); 
+   */
+  uint8_t addDoubleWord(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution);
 
-	/**
+  /**
 	 * @brief Add a floating-point value to the LPP packet.
 	 * @param channel Channel number.
    * @param type Type
@@ -148,7 +159,7 @@ public:
    * @param resolution Resolution of the value, used for interpretation (e.g., scaling).
    * @return Status code indicating the success of the operation.
 	 */
-	uint8_t addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution); 
+  uint8_t addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution);
 
   /**
    * @brief Add a 3float value to the LPP packet.
@@ -161,23 +172,23 @@ public:
 
 private:
 
-	/**
+  /**
 	 * @brief Pointer to the LPP packet buffer.
 	 * This variable holds the memory address of the LPP packet buffer.
 	 */
-	uint8_t *buffer;
+  uint8_t *buffer;
 
-	/**
+  /**
 	 * @brief Maximum size of the LPP packet buffer.
 	 * This variable stores the maximum size of the LPP packet buffer.
 	 */
-	uint8_t maxsize; 
+  uint8_t maxsize;
 
-	/**
+  /**
 	 * @brief Cursor indicating the current position in the buffer.
 	 * This variable represents the current position within the LPP packet buffer.
 	 */
-	uint8_t cursor; 
+  uint8_t cursor;
 };
 
 #endif

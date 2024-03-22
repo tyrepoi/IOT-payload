@@ -289,9 +289,8 @@ void loop(){
 
   float custom = 300.1;
 
-  lpp.addTemperature(LPP_CH_TEMPERATURE, temperature);
   //lpp.add2Bytes(LPP_CH_TEMPERATURE,LPP_TEMPERATURE, temperature, 10);
-  lpp.addCustomByte(LPP_CH_CUSTOMBYTE, LPP_CUSTOMBYTE, custom, 10, 2, 1);
+  lpp.addCustomByte(LPP_CH_CUSTOMBYTE, LPP_CUSTOMBYTE, custom, 10, 2);
 
 
   lpp.addWord(LPP_CH_TEMPERATURE, LPP_TEMPERATURE, temperature, 10);

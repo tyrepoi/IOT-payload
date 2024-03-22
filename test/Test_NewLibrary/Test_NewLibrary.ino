@@ -241,14 +241,14 @@ void loop(){
   // add sensor values to cayenne data package
   //lpp.addByte(LPP_CH_ADDBYTE, one);
 
-  float big = -309.1;
+  float big = 309.1;
   //lpp.add4Bytes(LPP_CH_ADD4BYTES, big);
 
   uint8_t bufesize = 3;
   uint8_t inputsa = 1;
 
   lpp.addWord(LPP_CH_TEMPERATURE, LPP_TEMPERATURE, temperature, 10);
-  // lpp.addWord(LPP_CH_LUMINOSITY, LPP_LUMINOSITY, luminosity, 1);
+  //lpp.addWord(LPP_CH_LUMINOSITY, LPP_LUMINOSITY, luminosity, 1);
   lpp.addCustomByte(LPP_CH_CUSTOM, LPP_CUSTOMBYTE, big, 10, 2);
 
   digitalWrite(LED_LORA, LOW);  //switch LED_LORA LED on
