@@ -14,7 +14,7 @@
  *  Add 2bytes                  6       6       2           1
  *  Add 4bytes                  7       7       4           1
  *  Add float                   8       8       4           0.0000001 signed
- *  Add custom_bit              9       9       1           1
+ *  Add custom_bit              9       9       n           n
  * 
  *  Illuminance Sensor  3301    101     65      2           1 Lux Unsigned MSB
  *  Presence Sensor     3302    102     66      1           1
@@ -62,8 +62,8 @@ function lppDecode(bytes) {
         6  : {'size': 2, 'name': '2byte', 'signed': false , 'divisor': 1},
         7  : {'size': 4, 'name': '4byte', 'signed': false , 'divisor': 1},
         8  : {'size': 4, 'name': 'float', 'signed': true , 'divisor': 1000000},
-        9  : {'size': 2, 'name': 'custom_bit', 'signed': false , 'divisor': 1},
-
+        9  : {'size': 1, 'name': 'custom', 'signed': false , 'divisor': 1},
+        
         100: {'size': 4, 'name': 'generic', 'signed': false, 'divisor': 1},
         101: {'size': 2, 'name': 'illuminance', 'signed': false, 'divisor': 1},
         102: {'size': 1, 'name': 'presence', 'signed': false, 'divisor': 1},
@@ -76,7 +76,7 @@ function lppDecode(bytes) {
         118: {'size': 4, 'name': 'frequency', 'signed': false, 'divisor': 1},
         120: {'size': 1, 'name': 'percentage', 'signed': false, 'divisor': 1},
         121: {'size': 2, 'name': 'altitude', 'signed': true, 'divisor': 1},
-	    125: {'size': 2, 'name': 'concentration', 'signed': false, 'divisor': 1},
+		125: {'size': 2, 'name': 'concentration', 'signed': false, 'divisor': 1},
         128: {'size': 2, 'name': 'power', 'signed': false, 'divisor': 1},
         130: {'size': 4, 'name': 'distance', 'signed': false, 'divisor': 1000},
         131: {'size': 4, 'name': 'energy', 'signed': false, 'divisor': 1000},
@@ -102,7 +102,7 @@ function lppDecode(bytes) {
             var max = (edge - 1) >> 1;             // 0x0FFF.. >> 1
             value = (value > max) ? value - edge : value;
         }
-
+      
         value /= divisor;
 
         return value;
@@ -111,10 +111,12 @@ function lppDecode(bytes) {
 
     var sensors = [];
     var i = 0;
+  
     while (i < bytes.length) {
 
         var s_no   = bytes[i++];
         var s_type = bytes[i++];
+
         if (typeof sensor_types[s_type] == 'undefined') {
             throw 'Sensor type error!: ' + s_type;
         }
@@ -123,9 +125,29 @@ function lppDecode(bytes) {
         var type = sensor_types[s_type];
         switch (s_type) {
             case 4: //addBit
-            s_value = {
-                'bit': (bytes[i++] >> 1) & 1
-            };
+              s_value = {
+                  'bit': (bytes[i++] >> 1) & 1
+              };
+              break;
+            case 9: 
+                // Slice the bytes into two bytes
+                var slicedInfo = bytes.slice(i, i + 2);
+                
+                // Extract the last 3 bits from the last byte
+                type.size = slicedInfo[1] & 0x07;
+
+                // Extract the 10 bits from the last byte after the last 3 bits and concatenate with the 3 bits from the first byte
+                type.divisor = ((slicedInfo[0] & 0x07) << 10) | ((slicedInfo[1] & 0xF8) >> 3);
+                // Extract the sign bit from the last 10 bits of type.divisor
+                //type.signed = (type.divisor >> 9) & 0x01;
+                
+                i += 2;
+                // Slice the bytes from the byte array
+                var slicedBytes = bytes.slice(i, i + type.size);
+                // onvert the sliced bytes into a numerical value using arrayToDecimal
+                s_value = arrayToDecimal(slicedBytes, type.signed, type.divisor);
+                
+                break;
             case 113:   // Accelerometer
             case 134:   // Gyrometer
                 s_value = {

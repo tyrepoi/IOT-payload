@@ -115,12 +115,11 @@ public:
    * @param type the type of sensor or if added new paramaters use custom 
    * @param resolution how many decimals it has (1000 max)
    * @param num_bytes how many bytes will the message contain (7 bytes max)
-   * @param sign the indicator if the value can change to negative (true false)
    * @param implemented a function that can add custom parameters to the encoder
 	 * @param value value of the desired data transfer
 	 */ 
 
-  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes, bool sign);
+  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes);
 
 	/**
 	 * @brief Add a byte value to the LPP packet.
@@ -128,7 +127,7 @@ public:
    * @param implemented function addByte for the functions (DigitalInput and DigitalOutput, Presence).
 	 * @param value Byte value.
 	 */ 
-  uint8_t addByte(uint8_t channel, uint8_t type, float value, uint16_t resolution);
+  uint8_t addWord(uint8_t channel, uint8_t type, float value, uint8_t resolution);
 	
 	/**
 	 * @brief Add a two-byte value to the LPP packet.
@@ -136,14 +135,7 @@ public:
    * @param implemented function addWord for the functions (Temperature, Luminosity, AnalogInput, AnalogOutput, RelativeHumidity, BarometricPressure)
 	 * @param value Two-byte value.
 	 */
-  uint8_t addWord(uint8_t channel, uint8_t type, float value, uint16_t resolution);
 
-
-	/**
-	 * @brief Add a four-byte value to the LPP packet.
-	 * @param channel Channel number.
-	 * @param value Four-byte value.
-	 */
 	uint8_t addDoubleWord(uint8_t channel, uint8_t type, float value, uint16_t resolution);
 
 

@@ -93,6 +93,8 @@ TheThingsNetwork ttn(loraSerial, debugSerial, freqPlan);  // TTN object for LoRa
 #define LPP_CH_BOARDVCCVOLTAGE    5    ///< CayenneLPP CHannel for Processor voltage
 #define LPP_CH_PRESENCE           6    ///< CayenneLPP CHannel for Alarm
 
+#define LPP_CH_CUSTOM             7
+
 #define LPP_CH_SET_INTERVAL       20   ///< CayenneLPP CHannel for setting downlink interval
 #define LPP_CH_SW_RELEASE         90   ///< 
 
@@ -239,15 +241,15 @@ void loop(){
   // add sensor values to cayenne data package
   //lpp.addByte(LPP_CH_ADDBYTE, one);
 
-  uint32_t big = 309;
+  float big = -309.1;
   //lpp.add4Bytes(LPP_CH_ADD4BYTES, big);
 
   uint8_t bufesize = 3;
   uint8_t inputsa = 1;
 
   lpp.addWord(LPP_CH_TEMPERATURE, LPP_TEMPERATURE, temperature, 10);
-  lpp.addByte(LPP_CH_HUMIDITY, LPP_RELATIVE_HUMIDITY, humidity, 2);
-  lpp.addWord(LPP_CH_LUMINOSITY, LPP_LUMINOSITY, luminosity, 1);
+  // lpp.addWord(LPP_CH_LUMINOSITY, LPP_LUMINOSITY, luminosity, 1);
+  lpp.addCustomByte(LPP_CH_CUSTOM, LPP_CUSTOMBYTE, big, 10, 2);
 
   digitalWrite(LED_LORA, LOW);  //switch LED_LORA LED on
 
@@ -349,8 +351,8 @@ static void sleep(uint32_t delay_time_ms){
       ttn.wake();
         
       lpp.reset();
-      lpp.addByte(LPP_CH_PRESENCE, LPP_PRESENCE, ALARM, 1);
-      lpp.addByte(LPP_CH_SW_RELEASE, LPP_DIGITAL_INPUT, RELEASE, 1);
+      lpp.addWord(LPP_CH_PRESENCE, LPP_PRESENCE, ALARM, 1);
+      lpp.addWord(LPP_CH_SW_RELEASE, LPP_DIGITAL_INPUT, RELEASE, 1);
   
       // Send it off
       ttn.sendBytes(lpp.getBuffer(), lpp.getSize(), APPLICATION_PORT_CAYENNE, true);
