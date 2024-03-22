@@ -11,8 +11,8 @@
  *  Analog Output       3203    3       3       2           0.01 Signed
  *  
  *  Add byte                    5       5       1           1
- *  Add 2bytes                  6       6       2           1
- *  Add 4bytes                  7       7       4           1
+ *  Add word                    6       6       2           1
+ *  Add doubles word            7       7       4           1
  *  Add float                   8       8       4           0.0000001 signed
  *  Add custom_bit              9       9       n           n
  * 
@@ -56,11 +56,14 @@ function lppDecode(bytes) {
         1  : {'size': 1, 'name': 'digital_out', 'signed': false, 'divisor': 1},
         2  : {'size': 2, 'name': 'analog_in', 'signed': true , 'divisor': 100},
         3  : {'size': 2, 'name': 'analog_out', 'signed': true , 'divisor': 100},
-
+/*
+*   Added new sensor types: bit, byte, word, double_word, float and custom. For custom sign is not recommended to change, divisor can be 
+*   changed but nothing will happen.
+*/
         4  : {'size': 1, 'name': 'bit', 'signed': false , 'divisor': 1},
         5  : {'size': 1, 'name': 'byte', 'signed': false , 'divisor': 1},
-        6  : {'size': 2, 'name': '2byte', 'signed': false , 'divisor': 1},
-        7  : {'size': 4, 'name': '4byte', 'signed': false , 'divisor': 1},
+        6  : {'size': 2, 'name': 'word', 'signed': false , 'divisor': 1},
+        7  : {'size': 4, 'name': 'double_word', 'signed': false , 'divisor': 1},
         8  : {'size': 4, 'name': 'float', 'signed': true , 'divisor': 1000000},
         9  : {'size': 1, 'name': 'custom', 'signed': false , 'divisor': 1},
         
@@ -124,11 +127,19 @@ function lppDecode(bytes) {
         var s_value = 0;
         var type = sensor_types[s_type];
         switch (s_type) {
+/*
+* Added new case 4 for adding bit, it checks the byte payload and looks at the first number
+*/
             case 4: //addBit
               s_value = {
                   'bit': (bytes[i++] >> 1) & 1
               };
               break;
+/*
+* Added a new case 9 for custom data types, it first slices the current payload into 2, puts it into slicedInfo, from there
+* it gets it's size and divisor. Moves the pointer by 2, it then slices according to size, and then gets put into
+* arrayToDecimal to extract the value from the slice
+*/
             case 9: 
                 // Slice the bytes into two bytes
                 var slicedInfo = bytes.slice(i, i + 2);
@@ -144,7 +155,7 @@ function lppDecode(bytes) {
                 i += 2;
                 // Slice the bytes from the byte array
                 var slicedBytes = bytes.slice(i, i + type.size);
-                // onvert the sliced bytes into a numerical value using arrayToDecimal
+                // convert the sliced bytes into a numerical value using arrayToDecimal
                 s_value = arrayToDecimal(slicedBytes, type.signed, type.divisor);
                 
                 break;
