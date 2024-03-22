@@ -109,7 +109,7 @@ public:
 	 */
 	uint8_t addBit(uint8_t channel, uint8_t value);
 
-  uint8_t addCustomByte(uint8_t channel, uint16_t type, float value, uint16_t resolution, uint8_t num_bytes);
+  uint8_t addCustomByte(uint8_t channel, uint8_t type, float value, uint16_t resolution, uint8_t num_bytes);
 
 	/**
 	 * @brief Add a byte value to the LPP packet.
@@ -117,7 +117,7 @@ public:
    * @param implemented function addByte for the functions (addDigitalInput and addDigitalOutput).
 	 * @param value Byte value.
 	 */ 
-  uint8_t addByte(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+  uint8_t addByte(uint8_t channel, uint8_t type, float value, uint16_t resolution);
 	
 	/**
 	 * @brief Add a two-byte value to the LPP packet.
@@ -125,28 +125,28 @@ public:
    * @param implemented function add2Bytes for the functions (temperature, addLuminosity, addAnalogInput, addAnalogOutput)
 	 * @param value Two-byte value.
 	 */
-  uint8_t add2Bytes(uint8_t channel, uint8_t type, float value, uint8_t resolution);
+  uint8_t add2Bytes(uint8_t channel, uint8_t type, float value, uint16_t resolution);
 
 	/**
 	 * @brief Add a four-byte value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Four-byte value.
 	 */  
-	uint8_t add4Bytes(uint8_t channel, uint8_t type, uint32_t value, uint8_t resolution); 
+	uint8_t add4Bytes(uint8_t channel, uint8_t type, float value, uint16_t resolution); 
 
 	/**
 	 * @brief Add a floating-point value to the LPP packet.
 	 * @param channel Channel number.
 	 * @param value Floating-point value.
 	 */
-	uint8_t addFloat(uint8_t channel, uint8_t type, float value, uint8_t resolution); 
+	uint8_t addFloat(uint8_t channel, float value, uint16_t resolution); 
 
   /**
    * @brief Add a 3float value to the LPP packet.
    * @param channel Channel number.
    * @param value Floating-point value.
    */
-  uint8_t add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint8_t resolution);
+  uint8_t add3Float(uint8_t channel, uint8_t type, float x, float y, float z, uint16_t resolution);
 
 	/**
 	 * @brief Add a digital input value to the LPP packet.
